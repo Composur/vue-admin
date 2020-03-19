@@ -1,10 +1,12 @@
 import { login, logout, getInfo } from '@/api/user'
+import Store from 'store'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
-
+import {GET_LOGIN} from '@/store/mutations_types'
 const getDefaultState = () => {
   return {
     token: getToken(),
+    userInfo:{},
     name: '',
     avatar: ''
   }
@@ -13,6 +15,9 @@ const getDefaultState = () => {
 const state = getDefaultState()
 
 const mutations = {
+  [GET_LOGIN]: (state,data) => {
+    state.userInfo = data
+  },
   RESET_STATE: (state) => {
     Object.assign(state, getDefaultState())
   },
@@ -29,18 +34,28 @@ const mutations = {
 
 const actions = {
   // user login
-  login({ commit }, userInfo) {
-    const { username, password } = userInfo
-    return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
-        const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
-        resolve()
-      }).catch(error => {
-        reject(error)
-      })
-    })
+//  async login({ commit }, userInfo) {
+//     const { username, password } = userInfo
+//     return new Promise((resolve, reject) => {
+//       login({ username: username.trim(), password: password }).then(response => {
+//         const { data } = response
+//         commit('SET_TOKEN', data.token)
+//         setToken(data.token)
+//         resolve()
+//       }).catch(error => {
+//         reject(error)
+//       })
+//     })
+//   },
+  async [GET_LOGIN]({
+    commit
+  }, params) {
+    const res = await login(params)
+    Store.set('token',res.token)
+    Store.set('user_id',res.data._id)
+    if(res.data){
+      commit(GET_LOGIN, res.data)
+    }
   },
 
   // get user info
@@ -66,16 +81,18 @@ const actions = {
 
   // user logout
   logout({ commit, state }) {
-    return new Promise((resolve, reject) => {
-      logout(state.token).then(() => {
-        removeToken() // must remove  token  first
-        resetRouter()
-        commit('RESET_STATE')
-        resolve()
-      }).catch(error => {
-        reject(error)
-      })
-    })
+    // return new Promise((resolve, reject) => {
+    //   logout(state.token).then(() => {
+    //     removeToken() // must remove  token  first
+    //     resetRouter()
+    //     commit('RESET_STATE')
+    //     resolve()
+    //   }).catch(error => {
+    //     reject(error)
+    //   })
+    // })
+    Store.clearAll()
+    // this.$router.replace({ path:  '/' })
   },
 
   // remove token

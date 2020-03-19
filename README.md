@@ -1,6 +1,3 @@
-
-# [原地址](https://github.com/PanJiaChen/vue-admin-template)
-<small>感谢作者开源</small>
 # vue-admin-template
 
 English | [简体中文](./README-zh.md)

@@ -54,7 +54,9 @@
 
 <script>
 import { validUsername } from '@/utils/validate'
-
+import { mapActions, mapState ,mapGetters } from 'vuex'
+// import { GET_LOGIN } from '@/store/mutations_types'
+// const test = `user/${GET_LOGIN}`
 export default {
   name: 'Login',
   data() {
@@ -66,7 +68,7 @@ export default {
       }
     }
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
+      if (value.length < 5) {
         callback(new Error('The password can not be less than 6 digits'))
       } else {
         callback()
@@ -74,8 +76,8 @@ export default {
     }
     return {
       loginForm: {
-        username: 'admin',
-        password: '111111'
+        username:('admin'),
+        password: ('admin')
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -95,6 +97,7 @@ export default {
     }
   },
   methods: {
+    //  ...mapActions([test]),
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -109,8 +112,14 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
-            this.$router.push({ path: this.redirect || '/' })
+          // 没有找到好的 命名空间下 action 的注册方式 先用 dispatch 吧
+          // this[test](this.loginForm)
+          this.$store.dispatch('user/get_login', { 
+            username:btoa(this.loginForm.username),
+            password:btoa(this.loginForm.password),
+          }).then(() => {
+            debugger
+            this.$router.replace({ path: this.redirect || '/' })
             this.loading = false
           }).catch(() => {
             this.loading = false

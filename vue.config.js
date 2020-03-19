@@ -29,14 +29,37 @@ module.exports = {
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
+  // devServer: {
+  //   // host:'localhost' || '0.0.0.0', //ip地址
+  //   port: port,
+  //   // open: true,
+  //   proxy: {
+  //     '/api':{
+  //       target: 'http://localhost:8084',
+  //     }
+  //   },
+  //   overlay: {
+  //     warnings: false,
+  //     errors: true
+  //   },
+  //   before: require('./mock/mock-server.js')
+  // },
   devServer: {
-    port: port,
-    open: true,
-    overlay: {
-      warnings: false,
-      errors: true
-    },
-    before: require('./mock/mock-server.js')
+    hot: true, //热加载
+    host: process.env.HOST || '0.0.0.0', //ip地址
+    // host: 'localhost',
+    port: 8888, //端口
+    // https: false, //false关闭https，true为开启
+    // open: true, //自动打开浏览器
+    proxy: {
+        '/api': { //本地                                        
+        target: 'http://localhost:8084/',
+        changeOrigin: true,//支持跨域
+        // pathRewrite:{ //重写路径
+        //   "^/api":''
+        // }
+      },
+    }
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that

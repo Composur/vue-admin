@@ -1,12 +1,14 @@
 import request from '@/utils/request'
+import Store from 'store'
+export const login = data => request('/login', 'POST', data)
 
-export function login(data) {
-  return request({
-    url: '/vue-admin-template/user/login',
-    method: 'post',
-    data
-  })
-}
+// export function login(data) {
+//   return request({
+//     url: '/vue-admin-template/user/login',
+//     method: 'post',
+//     data
+//   })
+// }
 
 export function getInfo(token) {
   return request({
@@ -17,8 +19,9 @@ export function getInfo(token) {
 }
 
 export function logout() {
-  return request({
-    url: '/vue-admin-template/user/logout',
-    method: 'post'
-  })
+  // return request({
+  //   url: '/vue-admin-template/user/logout',
+  //   method: 'post'
+  // })
+  this.$store.redirect('/')
 }

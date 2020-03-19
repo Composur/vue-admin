@@ -1,0 +1,2 @@
+::ffff:127.0.0.1 - POST /api/login HTTP/1.1 200 568 - 37.485 ms
+::ffff:127.0.0.1 - GET /api/manage/category/list?parentId=0 HTTP/1.1 401 57 - 4.557 ms
