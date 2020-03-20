@@ -1,11 +1,12 @@
 <template>
   <div class="login-container">
+     <lang-select class="set-language" />
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <!-- <h3 class="title">Login Form</h3> -->
+        <h3 class="title"> {{ $t('login.title') }}</h3>
       </div>
-
       <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="user" />
@@ -54,11 +55,10 @@
 
 <script>
 import { validUsername } from '@/utils/validate'
-import { mapActions, mapState ,mapGetters } from 'vuex'
-// import { GET_LOGIN } from '@/store/mutations_types'
-// const test = `user/${GET_LOGIN}`
+import LangSelect from '@/components/LangSelect'
 export default {
   name: 'Login',
+  components:{LangSelect},
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
@@ -97,7 +97,6 @@ export default {
     }
   },
   methods: {
-    //  ...mapActions([test]),
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -190,7 +189,14 @@ $light_gray:#eee;
   width: 100%;
   background-color: $bg;
   overflow: hidden;
-
+  .set-language{
+    color: #fff;
+    position: absolute;
+    top: 3px;
+    right: 10px;
+    font-size: 18px;
+    cursor: pointer;
+  }
   .login-form {
     position: relative;
     width: 520px;
