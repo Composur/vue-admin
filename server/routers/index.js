@@ -49,7 +49,7 @@ router.post('/login', (req, res) => {
       if (user) { // 登陆成功
         // 生成一个cookie(userid: user._id), 并交给浏览器保存
         res.cookie('userid', user._id, {maxAge: 1000 * 60 * 60 * 24,secure:true,httpOnly:true,sameSite:'Lax'})
-        let token = generateToken({username});
+        let token = generateToken({username,id:user._id});
         if (user.role_id) {
           RoleModel.findOne({_id: user.role_id})
             .then(role => {
@@ -72,6 +72,24 @@ router.post('/login', (req, res) => {
       res.send({status: 1, msg: '登陆异常, 请重新尝试'})
     })
 })
+// 获取用户信息
+router.get('/getUserInfo', (req,res,next) => {
+   // {
+    //   data: { username: 'admin', id: '5e73392a3093c62696d06554' },
+    //   exp: 1584758539,
+    //   iat: 1584672139
+    // }
+    const {data} = req.result
+    if(data){
+      UserModel.findById(data.id,function(err,user){
+        res.send({status: 20000, data:user})
+      })
+    }else{
+      res.send({status: 1, msg: '登陆异常, 请重新尝试'})
+    }    
+})
+
+
 
 // 添加用户
 router.post('/manage/user/add', (req, res) => {

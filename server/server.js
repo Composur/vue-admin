@@ -102,7 +102,7 @@ function verifyToken(token){
 
 
 app.use((req,res,next)=>{
-  let token=req.headers.authorization
+  let token = req.headers.authorization
   // let token=req.headers.X-Token
   const cookie=req.cookies
   const url=req.url
@@ -113,7 +113,8 @@ app.use((req,res,next)=>{
         let result = jwt.verify(token, cert, {algorithms: ['RS256']}) || {};
         let {exp = 0} = result,current = Math.floor(Date.now()/1000);
         if(current <= exp){
-            next()
+          req.result = result
+          next()
         }
     }catch(e){
       res.status(401)

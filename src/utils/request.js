@@ -70,6 +70,7 @@ service.interceptors.response.use(
     }
   },
   error => {
+    debugger
     console.log("err" + error); // for debug
     Message({
       message: error.message,
@@ -95,8 +96,8 @@ export default function(url, type = "GET", data = {}) {
       if (paramStr) {
         paramStr = paramStr.substring(0, paramStr.length - 1);
       }
-      // promise = service.get(url+'?'+paramStr+'&t='+new Date())
-      promise = service.get(+"?" + paramStr + "&t=" + new Date());
+      promise = service.get(url+'?'+paramStr+'&t='+new Date())
+      // promise = service.get("?" + paramStr + "&t=" + new Date());
     } else {
       promise = service.post(url, data);
       // promise = service.post('',data)

@@ -1,8 +1,8 @@
-import { login, logout, getInfo } from '@/api/user'
+import { login, logout, getInfo,getUserInfo } from '@/api/user'
 import Store from 'store'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
-import {GET_LOGIN} from '@/store/mutations_types'
+import {GET_LOGIN,GET_USER_INFO} from '@/store/mutations_types'
 const getDefaultState = () => {
   return {
     token: getToken(),
@@ -16,6 +16,9 @@ const state = getDefaultState()
 
 const mutations = {
   [GET_LOGIN]: (state,data) => {
+    state.token = data
+  },
+  [GET_USER_INFO]: (state,data) => {
     state.userInfo = data
   },
   RESET_STATE: (state) => {
@@ -47,36 +50,40 @@ const actions = {
 //       })
 //     })
 //   },
+// 登录
   async [GET_LOGIN]({
     commit
   }, params) {
     const res = await login(params)
-    Store.set('token',res.token)
-    Store.set('user_id',res.data._id)
-    if(res.data){
-      commit(GET_LOGIN, res.data)
-    }
+    setToken(res.token)
+    commit('SET_TOKEN', res.token)
   },
 
   // get user info
-  getInfo({ commit, state }) {
-    return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
-        const { data } = response
+  // getInfo({ commit, state }) {
+  //   return new Promise((resolve, reject) => {
+  //     getInfo(state.token).then(response => {
+  //       const { data } = response
 
-        if (!data) {
-          reject('Verification failed, please Login again.')
-        }
+  //       if (!data) {
+  //         reject('Verification failed, please Login again.')
+  //       }
 
-        const { name, avatar } = data
+  //       const { name, avatar } = data
 
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
-        resolve(data)
-      }).catch(error => {
-        reject(error)
-      })
-    })
+  //       commit('SET_NAME', name)
+  //       commit('SET_AVATAR', avatar)
+  //       resolve(data)
+  //     }).catch(error => {
+  //       reject(error)
+  //     })
+  //   })
+  // },
+  
+  async [GET_USER_INFO]({commit}){
+    const res = await getUserInfo()
+    console.log(res)
+    commit('SET_NAME',res.username)
   },
 
   // user logout

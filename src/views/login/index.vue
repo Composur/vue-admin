@@ -118,7 +118,6 @@ export default {
             username:btoa(this.loginForm.username),
             password:btoa(this.loginForm.password),
           }).then(() => {
-            debugger
             this.$router.replace({ path: this.redirect || '/' })
             this.loading = false
           }).catch(() => {
