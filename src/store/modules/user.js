@@ -81,14 +81,18 @@ const actions = {
   // },
   
   async [GET_USER_INFO]({commit}){
-    const res = await getUserInfo()
-    console.log(res)
-    commit('SET_NAME',res.username)
+    const {data} = await getUserInfo()
+    commit('SET_NAME',data.username)
   },
 
   // user logout
-  logout({ commit, state }) {
+ async logout({ commit, state }) {
+    await logout()
+    removeToken() // must remove  token  first
+    resetRouter()
+    commit('RESET_STATE')
     // return new Promise((resolve, reject) => {
+    //   debugger
     //   logout(state.token).then(() => {
     //     removeToken() // must remove  token  first
     //     resetRouter()
@@ -98,8 +102,6 @@ const actions = {
     //     reject(error)
     //   })
     // })
-    Store.clearAll()
-    // this.$router.replace({ path:  '/' })
   },
 
   // remove token

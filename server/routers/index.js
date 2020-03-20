@@ -82,10 +82,10 @@ router.get('/getUserInfo', (req,res,next) => {
     const {data} = req.result
     if(data){
       UserModel.findById(data.id,function(err,user){
-        res.send({status: 20000, data:user})
+        res.send({code: 20000, data:user})
       })
     }else{
-      res.send({status: 1, msg: '登陆异常, 请重新尝试'})
+      res.send({code: 1, msg: '登陆异常, 请重新尝试'})
     }    
 })
 
