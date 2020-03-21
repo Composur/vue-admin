@@ -39,11 +39,6 @@ const indexRouter = require('./routers')
 
 
 
-// app.get('*.js', function (req, res, next) {
-//   req.url = req.url + '.gz';
-//   res.set('Content-Encoding', 'gzip');
-//   next();
-// });
 
 
 // 这种情况适合前后端不分离，前端静态页面嵌入到后端应用中
@@ -100,17 +95,15 @@ function verifyToken(token){
 //   }
 // });
 
-
+// Token 校验
 app.use((req,res,next)=>{
-  let token = req.headers.authorization
-  // let token=req.headers.X-Token
-  const cookie=req.cookies
+  // let token = req.headers.authorization
+  const {vue_admin_template_token} = req.cookies
   const url=req.url
   let cert = fs.readFileSync(path.join(__dirname, './config/rsa_public_key.pem'));//公钥
-  
   if(url.indexOf('/api/login') !== 0){
       try{
-        let result = jwt.verify(token, cert, {algorithms: ['RS256']}) || {};
+        let result = jwt.verify(vue_admin_template_token, cert, {algorithms: ['RS256']}) || {};
         let {exp = 0} = result,current = Math.floor(Date.now()/1000);
         if(current <= exp){
           req.result = result
@@ -120,7 +113,6 @@ app.use((req,res,next)=>{
       res.status(401)
       res.send({status: 1, msg: '登录信息失效，请重新登录'})
     }
-        
   }else{
     next()
   }

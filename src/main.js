@@ -18,6 +18,7 @@ import i18n from './lang'
 import '@/icons' // icon
 import '@/permission' // permission control
 
+import * as filters from './filters' // global filters
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -32,11 +33,15 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // set ElementUI lang to EN
-Vue.use(ElementUI, { i18n })
-// Vue.use(Element, {
-//   // size: Cookies.get('size') || 'medium', // set element-ui default size
-//   i18n: (key, value) => i18n.t(key, value)
-// })
+// Vue.use(ElementUI, { i18n })
+Vue.use(ElementUI, {
+  // size: Cookies.get('size') || 'medium', // set element-ui default size
+  i18n: (key, value) => i18n.t(key, value)
+})
+// 全局注册
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
 
 // 如果想要中文版 element-ui，按如下方式声明
 // Vue.use(ElementUI)

@@ -20,7 +20,7 @@ service.interceptors.request.use(
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation
       // config.headers["X-Token"] = getToken();
-      config.headers.authorization = getToken();
+      // config.headers.authorization = getToken();
     }
     return config;
   },
@@ -83,6 +83,7 @@ service.interceptors.response.use(
 
 export default function(url, type = "GET", data = {}) {
   // axios.defaults.headers.common['Authorization'] = store.get('token')
+  
   let promise;
   // url=config.baseURl+url
   // 返回一个promise，统一处理错误
@@ -96,8 +97,12 @@ export default function(url, type = "GET", data = {}) {
       if (paramStr) {
         paramStr = paramStr.substring(0, paramStr.length - 1);
       }
-      promise = service.get(url+'?'+paramStr+'&t='+new Date())
-      // promise = service.get("?" + paramStr + "&t=" + new Date());
+      // promise = service.get(url+'?'+paramStr+'&t='+new Date())
+      if(paramStr){
+          promise = service.get(url+'?'+paramStr+'&t='+new Date())
+      }else{
+        promise = service.get(url+'?'+'t='+new Date())
+      }
     } else {
       promise = service.post(url, data);
       // promise = service.post('',data)
@@ -105,12 +110,13 @@ export default function(url, type = "GET", data = {}) {
     promise
       .then(res => {
         // 2.成功调用resolve
-        // if (res.data && res.data.status === 0) {
-        //   resolve(res.data);
-        // } else {
-        //   message.error(res.data.msg);
-        //   resolve(res.data);
-        // }
+        if (res.msg) {
+          Message({
+            message: res.msg,
+            type: "success",
+            duration: 1 * 1000
+          });
+        } 
         resolve(res)
       })
       .catch(err => {

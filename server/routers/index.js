@@ -48,7 +48,7 @@ router.post('/login', (req, res) => {
       res.setHeader('Cache-Control', 'no-store')
       if (user) { // 登陆成功
         // 生成一个cookie(userid: user._id), 并交给浏览器保存
-        res.cookie('userid', user._id, {maxAge: 1000 * 60 * 60 * 24,secure:true,httpOnly:true,sameSite:'Lax'})
+        // res.cookie('userid', user._id, {maxAge: 1000 * 60 * 60 * 24,secure:true,httpOnly:true,sameSite:'Lax'})
         let token = generateToken({username,id:user._id});
         if (user.role_id) {
           RoleModel.findOne({_id: user.role_id})
@@ -103,8 +103,6 @@ router.post('/manage/user/add', (req, res) => {
       if (user) {
         // 返回提示错误的信息
         res.send({status: 1, msg: '此用户已存在'})
-        return new Promise(() => {
-        })
       } else { // 没值(不存在)
         // 保存
         return UserModel.create({...req.body, password: md5(password || '123456')})
@@ -112,7 +110,7 @@ router.post('/manage/user/add', (req, res) => {
     })
     .then(user => {
       // 返回包含user的json数据
-      res.send({status: 0, data: user})
+      res.send({code: 20000,msg:'新增成功'})
     })
     .catch(error => {
       console.error('注册异常', error)
@@ -174,10 +172,11 @@ router.post('/manage/user/delete', (req, res) => {
 
 // 获取所有用户列表
 router.get('/manage/user/list', (req, res) => {
-  UserModel.find({username: {'$ne': 'admin'}},{password:0,__v:0}).sort({"_id": -1})
+  // UserModel.find({username: {'$ne': 'admin'}},{password:0,__v:0}).sort({"_id": -1})
+  UserModel.find(null,{password:0,__v:0}).sort({"_id": -1})
     .then(users => {
       RoleModel.find().then(roles => {
-        res.send({status: 0, data: {users, roles}})
+        res.send({code: 20000, data: {users, roles}})
       })
     })
     .catch(error => {

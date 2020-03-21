@@ -29,25 +29,9 @@ module.exports = {
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
-  // devServer: {
-  //   // host:'localhost' || '0.0.0.0', //ip地址
-  //   port: port,
-  //   // open: true,
-  //   proxy: {
-  //     '/api':{
-  //       target: 'http://localhost:8084',
-  //     }
-  //   },
-  //   overlay: {
-  //     warnings: false,
-  //     errors: true
-  //   },
-  //   before: require('./mock/mock-server.js')
-  // },
   devServer: {
     hot: true, //热加载
     host: process.env.HOST || '0.0.0.0', //ip地址
-    // host: 'localhost',
     port: 8888, //端口
     // https: false, //false关闭https，true为开启
     // open: true, //自动打开浏览器
@@ -106,7 +90,11 @@ module.exports = {
     config
     // https://webpack.js.org/configuration/devtool/#development
       .when(process.env.NODE_ENV === 'development',
-        config => config.devtool('cheap-source-map')
+       
+        // config => config.devtool('cheap-source-map')
+         // 需要 Chrome debugger 为了便于调试 牺牲性能
+        //  http://webpack.docschina.org/configuration/devtool/#%E5%AF%B9%E4%BA%8E%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83
+        config => config.devtool('eval-source-map')
       )
 
     config

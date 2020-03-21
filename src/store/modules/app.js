@@ -2,6 +2,7 @@ import Cookies from 'js-cookie'
 import { getLanguage } from '@/lang/index'
 const state = {
   sidebar: {
+    // 侧导航 默认打卡
     opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
     withoutAnimation: false
   },
@@ -9,6 +10,8 @@ const state = {
   language:getLanguage()
 }
 
+// 0 关闭侧边栏 1 开启
+// 存到 cookie 方便记忆状态
 const mutations = {
   TOGGLE_SIDEBAR: state => {
     state.sidebar.opened = !state.sidebar.opened
@@ -33,6 +36,7 @@ const mutations = {
 
 }
 
+// 侧边栏信息的 action 
 const actions = {
   toggleSideBar({ commit }) {
     commit('TOGGLE_SIDEBAR')
