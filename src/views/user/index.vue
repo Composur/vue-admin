@@ -15,16 +15,15 @@
             {{ scope.row.create_time | parseTime('{y}-{m}-{d}') }}
           </template>
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="230">
           <template slot-scope="scope">
             <el-button type="primary" size="mini">查看</el-button>
-            <el-button @click="handleEditClick(scope.row)" type="primary" size="mini" icon="el-icon-edit">编辑</el-button>
+            <el-button @click="handleEditClick(scope.row)" type="primary" size="mini">编辑</el-button>
             <el-button v-if="scope.row.username!=='admin'" @click="handleDeleteClick(scope.row)" type="danger" size="mini">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination class="pagination" :current-page='pagination.currentPage' @size-change="handleSizeChange" @current-change='handleCurrentChange' background layout="prev, pager, next" :page-size="pagination.pageSize" :total="pageCount">
-      </el-pagination>
+      <pagination class="pagination" @update:page='pagination.currentPage=$event' @update:limit='pagination.pageSize=$event' :page='pagination.currentPage' :limit='pagination.pageSize' :total='pageCount' />
     </div>
   </div>
   <el-dialog title="新增用户" :visible.sync="centerDialogVisible">
@@ -50,7 +49,12 @@ import {
   addUser,
   deleteUser
 } from '@/api/user'
+import Pagination from '@/components/Pagination'
 export default {
+  name: 'userManage',
+  components: {
+    Pagination
+  },
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!value.length) {
@@ -101,11 +105,7 @@ export default {
       return this.list.length
     },
     tableLists() {
-      const {
-        currentPage,
-        pageSize
-      } = this.pagination
-      return this.list.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+      return this.renderTableLists()
     }
   },
   methods: {
@@ -147,11 +147,12 @@ export default {
       })
       this.getUserList()
     },
-    handleCurrentChange(currentPage) {
-      this.pagination.currentPage = currentPage
-    },
-    handleSizeChange(pageSize) {
-      this.pagination.pageSize = pageSize;
+    renderTableLists() {
+      const {
+        currentPage,
+        pageSize
+      } = this.pagination
+      return this.list.slice((currentPage - 1) * pageSize, currentPage * pageSize)
     }
   }
 }
