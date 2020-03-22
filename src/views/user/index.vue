@@ -4,31 +4,36 @@
     <el-button class="item" @click="handleAddClick" type="primary" size="mini" icon="el-icon-circle-plus">新增</el-button>
   </div>
   <div>
-    <el-table :data="list" border style="width: 100%">
-      <el-table-column prop="username" label="用户名">
-      </el-table-column>
-      <el-table-column prop="name" label="角色">
-      </el-table-column>
-      <el-table-column label="创建日期">
-        <template slot-scope="scope">
-          {{ scope.row.create_time | parseTime('{y}-{m}-{d}') }}
-        </template>
-      </el-table-column>
-      <el-table-column label="操作">
-        <template slot-scope="scope">
-          <el-button type="primary" size="mini">查看</el-button>
-          <el-button @click="handleEditClick(scope.row)" type="primary" size="mini" icon="el-icon-edit">编辑</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+    <div class="table-container">
+      <el-table :data="tableLists" border style="width: 100%">
+        <el-table-column prop="username" label="用户名">
+        </el-table-column>
+        <el-table-column prop="name" label="角色">
+        </el-table-column>
+        <el-table-column label="创建日期">
+          <template slot-scope="scope">
+            {{ scope.row.create_time | parseTime('{y}-{m}-{d}') }}
+          </template>
+        </el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button type="primary" size="mini">查看</el-button>
+            <el-button @click="handleEditClick(scope.row)" type="primary" size="mini" icon="el-icon-edit">编辑</el-button>
+            <el-button v-if="scope.row.username!=='admin'" @click="handleDeleteClick(scope.row)" type="danger" size="mini">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <el-pagination class="pagination" :current-page='pagination.currentPage' @size-change="handleSizeChange" @current-change='handleCurrentChange' background layout="prev, pager, next" :page-size="pagination.pageSize" :total="pageCount">
+      </el-pagination>
+    </div>
   </div>
   <el-dialog title="新增用户" :visible.sync="centerDialogVisible">
     <el-form ref="form" :model="form" :rules="addUserRules">
       <el-form-item label="用户名：" prop="username">
-        <el-input v-model="form.username" type="text"  ref="username" ></el-input>
+        <el-input v-model="form.username" type="text" ref="username"></el-input>
       </el-form-item>
       <el-form-item label="密码：" prop="password">
-        <el-input v-model="form.password" type="password" ref="password" ></el-input>
+        <el-input v-model="form.password" type="password" ref="password"></el-input>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -41,29 +46,35 @@
 
 <script>
 import {
-  getUsers,addUser
+  getUsers,
+  addUser,
+  deleteUser
 } from '@/api/user'
 export default {
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (value.length<6) {
+      if (!value.length) {
         callback(new Error('Please enter the correct user name'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
+      if (!value.length) {
         callback(new Error('The password can not be less than 6 digits'))
       } else {
         callback()
       }
     }
     return {
-      list: null,
+      list: [],
       listLoading: true,
-      addUserBtnLoading:false,
+      addUserBtnLoading: false,
       centerDialogVisible: false,
+      pagination: {
+        pageSize: 5,
+        currentPage: 1,
+      },
       form: {
         username: '',
         password: ''
@@ -85,6 +96,18 @@ export default {
   created() {
     this.getUserList()
   },
+  computed: {
+    pageCount() {
+      return this.list.length
+    },
+    tableLists() {
+      const {
+        currentPage,
+        pageSize
+      } = this.pagination
+      return this.list.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+    }
+  },
   methods: {
     async getUserList() {
       const {
@@ -101,18 +124,34 @@ export default {
       this.centerDialogVisible = true
     },
     addUser() {
-      this.$refs.form.validate( async (valid) => {
-          if (valid) {
-            this.addUserBtnLoading = true
-           await addUser(this.form)
-           this.addUserBtnLoading = true
-           this.centerDialogVisible = false
-           this.$refs.form.resetFields()
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          this.addUserBtnLoading = true
+          addUser(this.form).then(res => {
+            this.addUserBtnLoading = false
+            if (res.status !== 1) {
+              this.centerDialogVisible = false
+              this.$refs.form.resetFields()
+              this.getUserList()
+            }
+          })
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
+    async handleDeleteClick(data) {
+      const res = await deleteUser({
+        _id: data._id
+      })
+      this.getUserList()
+    },
+    handleCurrentChange(currentPage) {
+      this.pagination.currentPage = currentPage
+    },
+    handleSizeChange(pageSize) {
+      this.pagination.pageSize = pageSize;
     }
   }
 }
@@ -126,6 +165,14 @@ export default {
   @include clearfix;
 
   .item {
+    float: right;
+  }
+}
+
+.table-container {
+  @include clearfix;
+
+  .pagination {
     float: right;
   }
 }

@@ -141,7 +141,7 @@ router.post('/manage/user/delete', (req, res) => {
   const {_id} = req.body
   UserModel.deleteOne({_id})
     .then((doc) => {
-      res.send({status: 0,data:doc})
+      res.send({code: 20000,data:doc})
     })
 })
 
