@@ -54,7 +54,9 @@ export default {
     // To fix https://github.com/PanJiaChen/vue-admin-template/issues/237
     // TODO: refactor with render function
     this.onlyOneChild = null
-    return {}
+    return {
+      test:false
+    }
   },
   methods: {
     hasOneShowingChild(children = [], parent) {
@@ -89,7 +91,7 @@ export default {
         return this.basePath
       }
       return path.resolve(this.basePath, routePath)
-    }
+    },
   }
 }
 </script>

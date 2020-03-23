@@ -86,7 +86,7 @@ service.interceptors.response.use(
 
 export default function(url, type = "GET", data = {}) {
   // axios.defaults.headers.common['Authorization'] = store.get('token')
-  
+  type = type.toLocaleUpperCase() || 'GET'
   let promise;
   // url=config.baseURl+url
   // 返回一个promise，统一处理错误

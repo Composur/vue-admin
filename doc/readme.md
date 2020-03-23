@@ -70,6 +70,90 @@ computed: {
 
 + 获取用户信息成功后根据用户权限进行渲染
 
+### 5. 国际化
+
+使用插件[i18n](https://kazupon.github.io/vue-i18n/zh/)
+
+封装语言文字包库：
+
+```js
+$ src/lang
+├── lang
+│   ├── en.js
+│   ├── index.js
+│   └── zh.js
+```
+
+文件入口：
+
+```js
+
+import Vue from 'vue'
+import VueI18n from 'vue-i18n'
+import Cookies from 'js-cookie'
+import elementEnLocale from 'element-ui/lib/locale/lang/en' // element-ui lang
+import elementZhLocale from 'element-ui/lib/locale/lang/zh-CN'// element-ui lang
+import enLocale from './en'
+import zhLocale from './zh'
+
+// 如果在一个模块系统中使用它，你必须通过 Vue.use() 明确地安装 vue-i18n：
+Vue.use(VueI18n)
+
+// 语言环境信息
+// zhLocale ==> {Chinese:'中文'}
+const messages = {
+  en: {
+    ...enLocale,
+    ...elementEnLocale
+  },
+  zh: {
+    ...zhLocale,
+    ...elementZhLocale
+  },
+}
+export function getLanguage() {
+  // 存到 cookie  方便下次进入不用切换语言
+  const chooseLanguage = Cookies.get('language')
+  if (chooseLanguage) return chooseLanguage
+
+  // if has not choose language 
+  const language = (navigator.language || navigator.browserLanguage).toLowerCase()
+  const locales = Object.keys(messages)
+  for (const locale of locales) {
+    if (language.indexOf(locale) > -1) {
+      return locale
+    }
+  }
+  return 'en'
+}
+// 通过选项创建 VueI18n 实例
+const i18n = new VueI18n({
+  // set locale
+  // options: en | zh | es
+  locale: getLanguage(), 
+  // set locale messages
+  messages
+})
+
+export default i18n
+```
+
+然后在 main.js 引入，挂载到 Vue 实例上就可以使用了。 
+
+切换语言：
+
+```js
+handleSetLanguage(lang) {
+  // 全局配置 语言
+  this.$i18n.locale = lang
+  this.$store.dispatch('app/setLanguage', lang)
+  this.$message({
+    message: lang==='en'?'Switch Language Success':'切换语言成功',
+    type: 'success'
+  })
+}
+```
+
 
 
 

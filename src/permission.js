@@ -32,6 +32,11 @@ router.beforeEach(async(to, from, next) => {
         try {
           // get user info
           await store.dispatch('user/get_user_info')
+          // 可以在这里生成需要权限的路由表
+          // const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
+          // dynamically add accessible routes
+          // router.addRoutes(accessRoutes)
+  
           next()
         } catch (error) {
           // remove token and go to login page to re-login

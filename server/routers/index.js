@@ -82,7 +82,9 @@ router.get('/getUserInfo', (req,res,next) => {
     const {data} = req.result
     if(data){
       UserModel.findById(data.id,function(err,user){
-        res.send({code: 20000, data:user})
+        RoleModel.findById(data.id,function(err,roles){
+          res.send({code: 20000, data:user,role:roles})
+        })
       })
     }else{
       res.send({code: 1, msg: '登陆异常, 请重新尝试'})
@@ -342,7 +344,7 @@ router.post('/manage/role/add', (req, res) => {
   const {roleName} = req.body
   RoleModel.create({name: roleName})
     .then(role => {
-      res.send({status: 0, data: role})
+      res.send({code: 20000, data: role})
     })
     .catch(error => {
       res.send({status: 1, msg: '添加角色异常, 请重新尝试'})
@@ -365,7 +367,7 @@ router.post('/manage/role/delete', (req, res) => {
 router.get('/manage/role/list', (req, res) => {
   RoleModel.find().sort({"_id": -1})
     .then(roles => {
-      res.send({status: 0, data: roles})
+      res.send({code: 20000, data: roles})
     })
     .catch(error => {
       console.error('获取角色列表异常', error)
