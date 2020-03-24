@@ -5,12 +5,15 @@
   </div>
   <div>
     <div class="table-container">
-      <el-table  v-loading="listLoading"  element-loading-text="Loading" :data="tableLists" border style="width: 100%">
+      <el-table v-loading="listLoading" element-loading-text="Loading" :data="tableLists" border style="width: 100%">
         <el-table-column type="index" label="序号" center width='120'>
         </el-table-column>
         <el-table-column prop="username" label="用户名">
         </el-table-column>
-        <el-table-column prop="name" label="角色">
+        <el-table-column prop="roleName" label="角色">
+          <template slot-scope="scope">
+            {{ changeRoleName(scope.row.role_id)  }}
+          </template>
         </el-table-column>
         <el-table-column label="创建日期">
           <template slot-scope="scope">
@@ -26,7 +29,7 @@
         </el-table-column>
       </el-table>
       <!-- <pagination class="pagination" @update:page='pagination.currentPage = $event' @update:limit='pagination.pageSize=$event' :page='pagination.currentPage' :limit='pagination.pageSize' :total='pageCount' /> -->
-      <pagination class="pagination"  :page.sync='pagination.currentPage' :limit.sync='pagination.pageSize' :total='pageCount' />
+      <pagination class="pagination" :page.sync='pagination.currentPage' :limit.sync='pagination.pageSize' :total='pageCount' />
     </div>
   </div>
   <el-dialog title="新增用户" :visible.sync="centerDialogVisible">
@@ -36,6 +39,12 @@
       </el-form-item>
       <el-form-item label="密码：" prop="password">
         <el-input v-model="form.password" type="password" ref="password"></el-input>
+      </el-form-item>
+      <el-form-item label="角色：" prop="role_id">
+        <el-select ref='selectOption' v-model="form.role_id" placeholder="请选择">
+          <el-option v-for="item in selectOptions" :key="item.value" :label="item.label" :value="item.value">
+          </el-option>
+        </el-select>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -50,6 +59,7 @@
 import {
   getUsers,
   addUser,
+  getRoleLists,
   deleteUser
 } from '@/api/user'
 import Pagination from '@/components/Pagination'
@@ -82,6 +92,7 @@ export default {
         pageSize: 5,
         currentPage: 1,
       },
+      roles: [],
       form: {
         username: '',
         password: ''
@@ -96,8 +107,13 @@ export default {
           required: true,
           trigger: 'blur',
           validator: validatePassword
-        }]
-      }
+        }],
+        role_id: [{
+          required: true,
+        }],
+      },
+      selectOptions: [],
+      defaultRoleValue: '',
     }
   },
   created() {
@@ -109,7 +125,7 @@ export default {
     },
     tableLists() {
       return this.renderTableLists()
-    }
+    },
   },
   methods: {
     async getUserList() {
@@ -118,14 +134,29 @@ export default {
       } = await getUsers()
       this.list = data.users
       this.roles = data.roles
+      // this.list = this.list.map(item => {
+      //   item.roleName = this.roles.find(role => {
+      //     if (item.role_id === role._id) {
+      //       return role.name
+      //     }
+      //   })
+      // })
+
       this.listLoading = false
     },
     handleEditClick(rowData) {
       console.log(rowData)
     },
-    handleAddUserClick() {
+    async handleAddUserClick() {
       // alert('add')
       this.centerDialogVisible = true
+      const res = await getRoleLists()
+      this.selectOptions = res.data.map(item => {
+        return {
+          value: item._id,
+          label: item.name
+        }
+      })
     },
     addUser() {
       this.$refs.form.validate((valid) => {
@@ -158,8 +189,16 @@ export default {
       } = this.pagination
       return this.list.slice((currentPage - 1) * pageSize, currentPage * pageSize)
     },
-    handleAddRoleClick(){
-      
+    handleAddRoleClick() {
+
+    },
+    changeRoleName(id) {
+      if (id) {
+        const item = this.roles.find(item => {
+          return item._id === id
+        })
+        return item.name
+      }
     }
   }
 }
@@ -174,7 +213,7 @@ export default {
 
   .item {
     float: right;
-    margin:0 4px;
+    margin: 0 4px;
   }
 }
 

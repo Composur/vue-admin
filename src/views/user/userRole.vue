@@ -18,7 +18,7 @@
         <el-table-column label="操作" width="230">
           <template slot-scope="scope">
             <el-button type="primary" size="mini">查看</el-button>
-            <el-button @click="getTreeData()" type="primary" size="mini">编辑</el-button>
+            <el-button @click="getTreeData(scope.row)" type="primary" size="mini">编辑</el-button>
             <el-button v-if="scope.row.username!=='admin'" @click="handleDeleteClick(scope.row)" type="danger" size="mini">删除</el-button>
           </template>
         </el-table-column>
@@ -39,19 +39,19 @@
     </span>
   </el-dialog>
   <el-dialog title="权限管理" :visible.sync="authDialogVisible">
-    <el-tree ref='tree' :data="treeData" @check-change="handleNodeClick" show-checkbox node-key="path" :default-expanded-keys="[2, 3]" :default-checked-keys="[5]">
+    <el-tree ref='tree' :data="treeData"  show-checkbox node-key="path" :default-expanded-keys="[2, 3]" :default-checked-keys="[5]">
     </el-tree>
-    <!-- <span slot="footer" class="dialog-footer">
-      <el-button @click="centerDialogVisible = false">取 消</el-button>
-      <el-button type="primary" @click="addUser" :loading="addUserBtnLoading">确 定</el-button>
-    </span> -->
+    <span slot="footer" class="dialog-footer">
+      <el-button @click="authDialogVisible = false">取 消</el-button>
+      <el-button type="primary" @click="addRoles" :loading="addUserBtnLoading">确 定</el-button>
+    </span>
   </el-dialog>
 </div>
 </template>
 
 <script>
 import {
-  roleAdd,
+  roleAdd,addAuthLists,
   getRoleLists
 } from '@/api/user'
 import {
@@ -84,6 +84,7 @@ export default {
       addUserBtnLoading: false,
       centerDialogVisible: false,
       authDialogVisible: false,
+      currentRole:null,// 需要配置权限的角色
       treeData: [],
       pagination: {
         pageSize: 5,
@@ -159,7 +160,8 @@ export default {
       } = this.pagination
       return this.list.slice((currentPage - 1) * pageSize, currentPage * pageSize)
     },
-    getTreeData() {
+    getTreeData(role) {
+      this.currentRole = role
       this.authDialogVisible = true
       const treeData = this.filterTreeData(constantRoutes)
       this.treeData = treeData.filter(item => {
@@ -171,15 +173,19 @@ export default {
     filterTreeData(arr) {
       return arr.map(item => {
         if (item.hidden) return
-        item.label = item.meta.title
+        // item.label = item.meta.title?item.meta.title:item.redirect
+        item.label = item.redirect
         if (item.children) {
           this.filterTreeData(item.children)
         }
         return item
       })
     },
-    handleNodeClick(e) {
-      console.log(this.$refs.tree.getCheckedNodes());
+    async addRoles() {
+      this.currentRole.menus = this.$refs.tree.getCheckedNodes()
+      this.currentRole.auth_name = this.currentRole.name
+      const res = await addAuthLists(this.currentRole)
+      this.authDialogVisible = false
     },
   }
 }

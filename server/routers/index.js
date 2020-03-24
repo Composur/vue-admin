@@ -82,7 +82,7 @@ router.get('/getUserInfo', (req,res,next) => {
     const {data} = req.result
     if(data){
       UserModel.findById(data.id,function(err,user){
-        RoleModel.findById(data.id,function(err,roles){
+        RoleModel.findById(data.role_id,function(err,roles){
           res.send({code: 20000, data:user,role:roles})
         })
       })
@@ -382,7 +382,7 @@ router.post('/manage/role/update', (req, res) => {
   RoleModel.findOneAndUpdate({_id: role._id}, role)
     .then(oldRole => {
       // console.log('---', oldRole._doc)
-      res.send({status: 0, data: {...oldRole._doc, ...role}})
+      res.send({code: 20000, data: {...oldRole._doc, ...role}})
     })
     .catch(error => {
       console.error('更新角色异常', error)

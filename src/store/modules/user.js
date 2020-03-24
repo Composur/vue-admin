@@ -7,7 +7,8 @@ const getDefaultState = () => {
     token: getToken(),
     userInfo: {},
     name: "",
-    avatar: ""
+    avatar: "",
+    router:[]
   };
 };
 
@@ -26,14 +27,19 @@ const mutations = {
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar;
   },
+  SET_ROUTER: (state, roles) => {
+    state.router = roles;
+  },
 };
 
 const actions = {
   // 登录
   async [GET_LOGIN]({ commit }, params) {
     const res = await login(params);
+    console.log(res)
     setToken(res.token);
     commit("SET_TOKEN", res.token);
+    commit("SET_ROUTER", res.data.role.menus);
   },
 
   async [GET_USER_INFO]({ commit }) {

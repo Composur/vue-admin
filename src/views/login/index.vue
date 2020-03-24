@@ -53,21 +53,21 @@
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
+import {  } from '@/utils/validate'
 import LangSelect from '@/components/LangSelect'
 export default {
   name: 'Login',
   components:{LangSelect},
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
+      if (!(value)) {
         callback(new Error('Please enter the correct user name'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 5) {
+      if (!value) {
         callback(new Error('The password can not be less than 6 digits'))
       } else {
         callback()

@@ -30,7 +30,6 @@ import Layout from "@/layout";
  * all roles can be accessed
  */
 //所有权限通用路由表
-
 //不需要权限的公共页面
 export const constantRoutes = [
   {
@@ -49,7 +48,7 @@ export const constantRoutes = [
     path: "/",
     component: Layout,
     redirect: "/dashboard",
-    meta: { title: "Dashboard", icon: "dashboard" },
+    // meta: { title: "Dashboard", icon: "dashboard" },
     children: [
       {
         path: "dashboard",
@@ -85,27 +84,7 @@ export const constantRoutes = [
       },
     ]
   },
-  {
-    path: "/example",
-    component: Layout,
-    redirect: "/example/table",
-    name: "Example",
-    meta: { title: "Example", icon: "example" },
-    children: [
-      {
-        path: "table",
-        name: "Table",
-        component: () => import("@/views/table/index"),
-        meta: { title: "Table", icon: "table" }
-      },
-      {
-        path: "tree",
-        name: "Tree",
-        component: () => import("@/views/tree/index"),
-        meta: { title: "Tree", icon: "tree" }
-      }
-    ]
-  },
+  
 
   {
     path: "/form",
