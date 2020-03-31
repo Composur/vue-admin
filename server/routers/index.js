@@ -49,12 +49,11 @@ router.post('/login', (req, res) => {
       if (user) { // 登陆成功
         // 生成一个cookie(userid: user._id), 并交给浏览器保存
         // res.cookie('userid', user._id, {maxAge: 1000 * 60 * 60 * 24,secure:true,httpOnly:true,sameSite:'Lax'})
-        let token = generateToken({username,id:user._id});
+        let token = generateToken({username,id:user._id,role_id:user.role_id});
         if (user.role_id) {
           RoleModel.findOne({_id: user.role_id})
             .then(role => {
               user._doc.role = role
-              console.log('role user', user)
               res.send({code: 20000, data: user,token:token})
             })
         } else {
@@ -80,6 +79,7 @@ router.get('/getUserInfo', (req,res,next) => {
     //   iat: 1584672139
     // }
     const {data} = req.result
+
     if(data){
       UserModel.findById(data.id,function(err,user){
         RoleModel.findById(data.role_id,function(err,roles){

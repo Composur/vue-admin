@@ -208,7 +208,6 @@ export default {
 @import "~@/styles/mixin.scss";
 
 .table-top {
-  border: 1px solid red;
   @include clearfix;
 
   .item {

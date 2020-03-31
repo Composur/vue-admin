@@ -39,7 +39,7 @@
     </span>
   </el-dialog>
   <el-dialog title="权限管理" :visible.sync="authDialogVisible">
-    <el-tree ref='tree' :data="treeData"  show-checkbox node-key="path" :default-expanded-keys="[2, 3]" :default-checked-keys="[5]">
+    <el-tree ref='tree' :data="treeData" show-checkbox node-key="path" :default-expanded-keys="[2, 3]" :default-checked-keys="[5]">
     </el-tree>
     <span slot="footer" class="dialog-footer">
       <el-button @click="authDialogVisible = false">取 消</el-button>
@@ -51,7 +51,8 @@
 
 <script>
 import {
-  roleAdd,addAuthLists,
+  roleAdd,
+  addAuthLists,
   getRoleLists
 } from '@/api/user'
 import {
@@ -84,7 +85,7 @@ export default {
       addUserBtnLoading: false,
       centerDialogVisible: false,
       authDialogVisible: false,
-      currentRole:null,// 需要配置权限的角色
+      currentRole: null, // 需要配置权限的角色
       treeData: [],
       pagination: {
         pageSize: 5,
@@ -173,8 +174,12 @@ export default {
     filterTreeData(arr) {
       return arr.map(item => {
         if (item.hidden) return
-        // item.label = item.meta.title?item.meta.title:item.redirect
-        item.label = item.redirect
+        if (item.meta) {
+          item.label = item.meta.title
+        } else {
+          item.label = item.children[0].meta.title
+        }
+
         if (item.children) {
           this.filterTreeData(item.children)
         }
@@ -195,9 +200,7 @@ export default {
 @import "~@/styles/mixin.scss";
 
 .table-top {
-  border: 1px solid red;
   @include clearfix;
-
   .item {
     float: right;
     margin: 0 4px;

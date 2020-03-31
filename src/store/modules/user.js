@@ -8,7 +8,8 @@ const getDefaultState = () => {
     userInfo: {},
     name: "",
     avatar: "",
-    router:[]
+    router:[],
+    role_id:''
   };
 };
 
@@ -30,22 +31,30 @@ const mutations = {
   SET_ROUTER: (state, roles) => {
     state.router = roles;
   },
+  SET_ROLE_ID: (state, id) => {
+    state.role_id = id;
+  },
 };
 
 const actions = {
   // 登录
   async [GET_LOGIN]({ commit }, params) {
-    const res = await login(params);
-    console.log(res)
-    setToken(res.token);
-    commit("SET_TOKEN", res.token);
-    commit("SET_ROUTER", res.data.role.menus);
+    const {token,data} = await login(params);
+    setToken(token);
+    commit("SET_TOKEN",token);
+   
+    if(data.role_id){
+      commit("SET_ROLE_ID", data.role_id);
+    }
   },
 
   async [GET_USER_INFO]({ commit }) {
-    const { data } = await getUserInfo();
+    const { data ,role} = await getUserInfo();
     commit("SET_NAME", data.username);
     commit("SET_AVATAR", data.avatar);
+    if(role){
+      commit("SET_ROUTER", role.menus);
+    }
   },
 
   // user logout

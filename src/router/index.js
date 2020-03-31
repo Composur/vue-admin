@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+import store from '@/store/index'
 Vue.use(Router);
 
 /* Layout */
@@ -54,7 +55,7 @@ export const constantRoutes = [
         path: "dashboard",
         name: "Dashboard",
         component: () => import("@/views/dashboard/index"),
-        meta: { title: "Dashboard", icon: "dashboard" }
+        meta: { title: "主面板", icon: "dashboard" }
       }
     ]
   },
@@ -65,12 +66,12 @@ export const constantRoutes = [
     meta: { title: "用户管理", icon: "user-settings" },
     children: [
       {
-        path: "userInfo",
+        path: "/user/userInfo",
         name: "userManage",
         component: () => import("@/views/user/userInfo"),
         meta: {
           title: "用户管理",
-          icon: "user-settings",
+          icon: "user-settings"
         }
       },
       {
@@ -79,23 +80,22 @@ export const constantRoutes = [
         component: () => import("@/views/user/userRole"),
         meta: {
           title: "角色管理",
-          icon: "user-settings",
+          icon: "user-settings"
         }
-      },
+      }
     ]
   },
-  
 
   {
     path: "/form",
     component: Layout,
-    meta: { title: "Form", icon: "form" },
+    meta: { title: "表单", icon: "form" },
     children: [
       {
         path: "index",
         name: "Form",
         component: () => import("@/views/form/index"),
-        meta: { title: "Form", icon: "form" }
+        meta: { title: "表单", icon: "form" }
       }
     ]
   },
@@ -106,7 +106,7 @@ export const constantRoutes = [
     redirect: "/nested/menu1",
     name: "Nested",
     meta: {
-      title: "Nested",
+      title: "嵌套",
       icon: "nested"
     },
     children: [
@@ -161,13 +161,13 @@ export const constantRoutes = [
   },
 
   {
-    path: "external-link",
+    path: "/github",
     component: Layout,
-    meta: { title: "External Link", icon: "link" },
+    meta: { title: "github", icon: "link" },
     children: [
       {
-        path: "https://panjiachen.github.io/vue-element-admin-site/#/",
-        meta: { title: "External Link", icon: "link" }
+        path: "https://github.com/Composur",
+        meta: { title: "github", icon: "link" }
       }
     ]
   },
@@ -175,6 +175,7 @@ export const constantRoutes = [
   // 404 page must be placed at the end !!!
   { path: "*", redirect: "/404", hidden: true }
 ];
+
 const createRouter = () =>
   new Router({
     // mode: 'history', // require service support
@@ -183,6 +184,9 @@ const createRouter = () =>
   });
 
 const router = createRouter();
+
+
+
 
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 // 重置路由
