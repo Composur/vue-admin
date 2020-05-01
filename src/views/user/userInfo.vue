@@ -42,7 +42,7 @@
       </el-form-item>
       <el-form-item label="角色：" prop="role_id">
         <el-select ref='selectOption' v-model="form.role_id" placeholder="请选择">
-          <el-option v-for="item in selectOptions" :key="item.value" :label="item.label" :value="item.value">
+          <el-option v-for="item in selectOptions" :id="item.value" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
       </el-form-item>
@@ -152,6 +152,7 @@ export default {
       this.centerDialogVisible = true
       const res = await getRoleLists()
       this.selectOptions = res.data.map(item => {
+        
         return {
           value: item._id,
           label: item.name
