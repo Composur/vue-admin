@@ -96,7 +96,13 @@ export const constantRoutes = [
         name: "Form",
         component: () => import("@/views/form/index"),
         meta: { title: "表单", icon: "form" }
-      }
+      },
+      {
+        path: "树形表格",
+        name: "treeTable",
+        component: () => import("@/views/form/treeTable"),
+        meta: { title: "树形表格", icon: "tree" }
+      },
     ]
   },
 

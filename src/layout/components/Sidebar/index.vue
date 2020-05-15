@@ -34,8 +34,6 @@ export default {
       'routerTable'
     ]),
     routes() {
-      console.log(this.$router.options.routes)
-      console.log(this.routerTable)
       return this.$router.options.routes
     },
     activeMenu() {
