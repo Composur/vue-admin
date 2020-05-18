@@ -10,7 +10,7 @@
               <div class="td-title" @dblclick="handlerExpand(model)">
                 <span v-if="model.children.length > 0" class="tree-close" :class="{'tree-open':model.isExpand}" @click="handlerExpand(model)"></span>
                 <a class="ellipsis">
-                  <i class="t-icon m-dep"></i>
+                  <!-- <i class="t-icon m-dep"></i> -->
                   <span :title="model.ObjectName">{{model.ObjectName}}</span>
                 </a>
               </div>
@@ -87,9 +87,11 @@ export default {
       }
       recurFunc(this.trees, this.trees)
     },
+    // 暂开
     handlerExpand(m) {
       this.$emit('handlerExpand', m)
     },
+    // 删除
     deleteFunc(m) {
       this.$emit('deleteFunc', m)
       // this.getParentNode(m)
@@ -102,6 +104,7 @@ export default {
       // 	this.parentNodeModel.splice(this.parentNodeModel.indexOf(m), 1)
       // }
     },
+    // 编辑
     actionFunc(m) {
       this.$emit('actionFunc', m)
     }

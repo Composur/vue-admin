@@ -103,6 +103,12 @@ export const constantRoutes = [
         component: () => import("@/views/form/treeTable"),
         meta: { title: "树形表格", icon: "tree" }
       },
+      {
+        path: "树形菜单",
+        name: "treeMenu",
+        component: () => import("@/views/form/treeMenu"),
+        meta: { title: "树形菜单", icon: "tree" }
+      },
     ]
   },
 

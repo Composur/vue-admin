@@ -41,8 +41,8 @@ service.interceptors.response.use(
     const res = response.data;
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 20000) {
-      if(res.status === 1){
-        return res
+      if (res.status === 1) {
+        return res;
       }
       Message({
         message: res.msg || "Error",
@@ -73,8 +73,7 @@ service.interceptors.response.use(
     }
   },
   error => {
-    debugger
-    console.log("err" + error); // for debug
+    // console.log("err" + error); // for debug
     Message({
       message: error.message,
       type: "error",
@@ -86,7 +85,7 @@ service.interceptors.response.use(
 
 export default function(url, type = "GET", data = {}) {
   // axios.defaults.headers.common['Authorization'] = store.get('token')
-  type = type.toLocaleUpperCase() || 'GET'
+  type = type.toLocaleUpperCase() || "GET";
   let promise;
   // url=config.baseURl+url
   // 返回一个promise，统一处理错误
@@ -101,10 +100,10 @@ export default function(url, type = "GET", data = {}) {
         paramStr = paramStr.substring(0, paramStr.length - 1);
       }
       // promise = service.get(url+'?'+paramStr+'&t='+new Date())
-      if(paramStr){
-          promise = service.get(url+'?'+paramStr+'&t='+new Date())
-      }else{
-        promise = service.get(url+'?'+'t='+new Date())
+      if (paramStr) {
+        promise = service.get(url + "?" + paramStr + "&t=" + new Date());
+      } else {
+        promise = service.get(url + "?" + "t=" + new Date());
       }
     } else {
       promise = service.post(url, data);
@@ -119,8 +118,8 @@ export default function(url, type = "GET", data = {}) {
             type: "success",
             duration: 1 * 1000
           });
-        } 
-        resolve(res)
+        }
+        resolve(res);
       })
       .catch(err => {
         // 这里的错误处理和上面拦截器重复了 不要也可以
