@@ -53,6 +53,7 @@
 </template>
 
 <script>
+// import {mapMutations} from 'vuex';
 import {  } from '@/utils/validate'
 import LangSelect from '@/components/LangSelect'
 export default {
@@ -96,6 +97,7 @@ export default {
     }
   },
   methods: {
+    // ...mapMutations('user',['get_login']),
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''

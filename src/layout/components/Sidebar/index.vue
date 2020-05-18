@@ -14,7 +14,7 @@
         mode="vertical"
       >
         <!-- <sidebar-item v-for="route in routerTable" :key="route.path" :item="route" :base-path="route.path" /> -->
-        <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />
+        <sidebar-item v-for="route in routes"  :key="route.path" :item="route" :base-path="route.path" />
       </el-menu>
     </el-scrollbar>
   </div>
@@ -50,6 +50,9 @@ export default {
     },
     variables() {
       return variables
+    },
+    test(){
+      alert(12)
     },
     isCollapse() {
       return !this.sidebar.opened

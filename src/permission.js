@@ -26,17 +26,17 @@ router.beforeEach(async (to, from, next) => {
       // 是否获取到了用户信息
       const { name } = store.getters;
       if (name) {
-        if(name === 'admin'){
-          next()
-          return
-        }else{
+        if (name === "admin") {
+          next();
+          return;
+        } else {
           const { routerTable } = store.getters;
           routerTable.forEach(item => {
             if (item.path === to.path || item.redirect === to.path) {
               // console.log(item.path,to.path)
               next();
-            }else{
-              next(false)
+            } else {
+              next(false);
               NProgress.done();
             }
           });
@@ -50,9 +50,12 @@ router.beforeEach(async (to, from, next) => {
           // const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
           // dynamically add accessible routes
           // router.addRoutes(store.getters.routerTable)
-
+          // router.addRoutes(asyncRouterMap)
           // next({ ...to, replace: true })
-         next()
+
+
+        
+          next();
         } catch (error) {
           // remove token and go to login page to re-login
           await store.dispatch("user/resetToken");
