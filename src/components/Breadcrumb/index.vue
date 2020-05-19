@@ -27,6 +27,7 @@ export default {
     this.getBreadcrumb()
   },
   methods: {
+    // 通过 watch $route 每次点击调用 getBreadcrumb 方法得到 levelList
     getBreadcrumb() {
       // only show routes with meta.title
       let matched = this.$route.matched.filter(item => item.meta && item.meta.title)

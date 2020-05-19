@@ -11,7 +11,6 @@
           <item
             :icon="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)"
             :title="onlyOneChild.meta.title"
-             @click="test()"
           />
         </el-menu-item>
       </app-link>
@@ -101,18 +100,7 @@ export default {
       }
       return path.resolve(this.basePath, routePath);
     },
-    clickLink(path) {
-      debugger
-      this.$router.push({
-        path,
-        query: {
-          t: +new Date() //保证每次点击路由的query项都是不一样的，确保会重新刷新view
-        }
-      });
-    },
-  },
-  mounted:{
-    
+   
   }
 };
 </script>

@@ -37,6 +37,17 @@ import Layout from "@/layout";
 // 代表那些不需要动态判断权限的路由，如登录页、404、等通用页面。
 export const constantRoutes = [
   {
+    path: '/redirect', // 为了在不改变URL，刷新当前页
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: '/redirect/:path(.*)', // 重定向到 redirect 组件
+        component: () => import('@/views/redirect/index')
+      }
+    ]
+  },
+  {
     path: "/login",
     component: () => import("@/views/login/index"),
     hidden: true
@@ -101,13 +112,13 @@ export const constantRoutes = [
         meta: { title: "表单", icon: "form" }
       },
       {
-        path: "树形表格",
+        path: "treeTable",
         name: "treeTable",
         component: () => import("@/views/form/treeTable"),
         meta: { title: "树形表格", icon: "tree" }
       },
       {
-        path: "树形菜单",
+        path: "treeMenu",
         name: "treeMenu",
         component: () => import("@/views/form/treeMenu"),
         meta: { title: "树形菜单", icon: "tree" }
