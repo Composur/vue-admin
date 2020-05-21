@@ -37,7 +37,7 @@ import Layout from "@/layout";
 // 代表那些不需要动态判断权限的路由，如登录页、404、等通用页面。
 export const constantRoutes = [
   {
-    path: '/redirect', // 为了在不改变URL，刷新当前页
+    path: '/redirect', // 为了在不改变URL的前提下，点击刷新当前页
     component: Layout,
     hidden: true,
     children: [
@@ -73,32 +73,32 @@ export const constantRoutes = [
       }
     ]
   },
-  {
-    path: "/user",
-    component: Layout,
-    redirect: "/user/userInfo",
-    meta: { title: "用户管理", icon: "user-settings" },
-    children: [
-      {
-        path: "/user/userInfo",
-        name: "userManage",
-        component: () => import("@/views/user/userInfo"),
-        meta: {
-          title: "用户管理",
-          icon: "user-settings"
-        }
-      },
-      {
-        path: "userRole",
-        name: "userRole",
-        component: () => import("@/views/user/userRole"),
-        meta: {
-          title: "角色管理",
-          icon: "user-settings"
-        }
-      }
-    ]
-  },
+  // {
+  //   path: "/user",
+  //   component: Layout,
+  //   redirect: "/user/userInfo",
+  //   meta: { title: "用户管理", icon: "user-settings" },
+  //   children: [
+  //     {
+  //       path: "/user/userInfo",
+  //       name: "userManage",
+  //       component: () => import("@/views/user/userInfo"),
+  //       meta: {
+  //         title: "用户管理",
+  //         icon: "user-settings"
+  //       }
+  //     },
+  //     {
+  //       path: "userRole",
+  //       name: "userRole",
+  //       component: () => import("@/views/user/userRole"),
+  //       meta: {
+  //         title: "角色管理",
+  //         icon: "user-settings"
+  //       }
+  //     }
+  //   ]
+  // },
 
   {
     path: "/form",
@@ -203,4 +203,31 @@ export const constantRoutes = [
 ];
 
 // 代表那些需求动态判断权限并通过 addRoutes 动态添加的页面
-export const asyncRoutes = []
+// export const asyncRoutes = [
+//   {
+//     path: "/user",
+//     component: Layout,
+//     redirect: "/user/userInfo",
+//     meta: { title: "用户管理", icon: "user-settings" },
+//     children: [
+//       {
+//         path: "/user/userInfo",
+//         name: "userManage",
+//         component: () => import("@/views/user/userInfo"),
+//         meta: {
+//           title: "用户管理",
+//           icon: "user-settings"
+//         }
+//       },
+//       {
+//         path: "userRole",
+//         name: "userRole",
+//         component: () => import("@/views/user/userRole"),
+//         meta: {
+//           title: "角色管理",
+//           icon: "user-settings"
+//         }
+//       }
+//     ]
+//   },
+// ]

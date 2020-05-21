@@ -116,7 +116,7 @@ export default {
           // this[test](this.loginForm)
           this.$store.dispatch('user/get_login', { 
             username:btoa(this.loginForm.username),
-            password:btoa(this.loginForm.password),
+            password:btoa(this.loginForm.password)
           }).then((res) => {
             this.$router.replace({ path: this.redirect || '/' })
             this.loading = false

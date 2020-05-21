@@ -79,7 +79,6 @@ router.get('/getUserInfo', (req,res,next) => {
     //   iat: 1584672139
     // }
     const {data} = req.result
-
     if(data){
       UserModel.findById(data.id,function(err,user){
         RoleModel.findById(data.role_id,function(err,roles){

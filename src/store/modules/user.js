@@ -1,4 +1,4 @@
-import { login, logout,getUserInfo } from "@/api/user";
+import { login, logout, getUserInfo } from "@/api/user";
 import { getToken, setToken, removeToken } from "@/utils/auth";
 import { resetRouter } from "@/router";
 import { GET_LOGIN, GET_USER_INFO } from "@/store/mutations_types";
@@ -8,8 +8,8 @@ const getDefaultState = () => {
     userInfo: {},
     name: "",
     avatar: "",
-    router:[],
-    role_id:''
+    router: [],
+    role_id: ""
   };
 };
 
@@ -33,26 +33,26 @@ const mutations = {
   },
   SET_ROLE_ID: (state, id) => {
     state.role_id = id;
-  },
+  }
 };
 
 const actions = {
   // 登录
   async [GET_LOGIN]({ commit }, params) {
-    const {token,data} = await login(params);
+    const { token, data } = await login(params);
     setToken(token);
-    commit("SET_TOKEN",token);
-   
-    if(data.role_id){
+    commit("SET_TOKEN", token);
+
+    if (data.role_id) {
       commit("SET_ROLE_ID", data.role_id);
     }
   },
 
   async [GET_USER_INFO]({ commit }) {
-    const { data ,role} = await getUserInfo();
+    const { data, role } = await getUserInfo();
     commit("SET_NAME", data.username);
     commit("SET_AVATAR", data.avatar);
-    if(role){
+    if (role) {
       commit("SET_ROUTER", role.menus);
     }
   },
@@ -70,6 +70,15 @@ const actions = {
     return new Promise(resolve => {
       removeToken(); // must remove  token  first
       commit("RESET_STATE");
+      resolve();
+    });
+  },
+  GenerateRoutes({ commit }, data) {
+    return new Promise(resolve => {
+      const { asyncRouterMap } = data;
+      const accessedRouters = convertRouter(asyncRouterMap);
+      console.log(accessedRouters);
+      commit("SET_ROUTERS", accessedRouters);
       resolve();
     });
   }
