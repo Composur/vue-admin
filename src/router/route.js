@@ -199,7 +199,7 @@ export const constantRoutes = [
   },
 
   // 404 page must be placed at the end !!!
-  { path: "*", redirect: "/404", hidden: true }
+  // { path: "*", redirect: "/404", hidden: true }
 ];
 
 // 代表那些需求动态判断权限并通过 addRoutes 动态添加的页面

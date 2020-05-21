@@ -54,8 +54,10 @@ router.beforeEach(async (to, from, next) => {
       NProgress.done();
     } else {
       // 是否获取到了用户信息
+      const name = store.getters.name
       const hasRoles = store.getters.permission_routes && store.getters.permission_routes.length > 0
-      if (hasRoles) {
+      console.log(hasRoles)
+      if (hasRoles&&name) {
         next()
       } else {
         try {

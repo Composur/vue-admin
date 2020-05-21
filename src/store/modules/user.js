@@ -16,7 +16,7 @@ const getDefaultState = () => {
 const state = getDefaultState();
 
 const mutations = {
-  RESET_STATE: state => {
+  RESET_STATE: (state,rootState) => {
     Object.assign(state, getDefaultState());
   },
   SET_TOKEN: (state, token) => {
@@ -58,11 +58,11 @@ const actions = {
   },
 
   // user logout
-  async logout({ commit, state }) {
+  async logout({ commit, state ,rootState}) {
     await logout();
     removeToken(); // must remove  token  first
     resetRouter();
-    commit("RESET_STATE");
+    commit("RESET_STATE",rootState);
   },
 
   // remove token
@@ -73,15 +73,6 @@ const actions = {
       resolve();
     });
   },
-  GenerateRoutes({ commit }, data) {
-    return new Promise(resolve => {
-      const { asyncRouterMap } = data;
-      const accessedRouters = convertRouter(asyncRouterMap);
-      console.log(accessedRouters);
-      commit("SET_ROUTERS", accessedRouters);
-      resolve();
-    });
-  }
 };
 
 export default {
