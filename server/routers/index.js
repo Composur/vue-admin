@@ -80,11 +80,6 @@ router.get('/getUserInfo', (req, res, next) => {
   // }
   const { data } = req.result
   if (data) {
-    // UserModel.findById(data.id,function(err,user){
-    //   RoleModel.findById(data.role_id,function(err,roles){
-    //     res.send({code: 20000, data:user,role:roles})
-    //   })
-    // },filter)
     UserModel.findOne({ _id: data.id },filter).then(user => {
       RoleModel.findOne({ _id: data.role_id }).then(roles => {
         res.send({ code: 20000, data: user, role: roles })
