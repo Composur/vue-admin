@@ -56,7 +56,7 @@ router.beforeEach(async (to, from, next) => {
       // 是否获取到了用户信息
       const name = store.getters.name
       const hasRoles = store.getters.permission_routes && store.getters.permission_routes.length > 0
-      console.log(hasRoles)
+      console.log('hasRoles',hasRoles)
       if (hasRoles&&name) {
         next()
       } else {
@@ -64,12 +64,9 @@ router.beforeEach(async (to, from, next) => {
           // get user info
           await store.dispatch("user/get_user_info");
           await store.dispatch('permission/generateRoutes',  store.getters.routerTable)
-          // console.log(convertRouter(store.getters.routerTable));
           console.log(convertRouter(store.getters.routerTable));
           // 可以在这里生成需要权限的路由表
-          // router.addRoutes(store.getters.permission_routes);
           router.addRoutes(convertRouter(store.getters.routerTable));
-          // router.addRoutes(store.getters.routerTable)
           next({ ...to, replace: true })
 
           // next();

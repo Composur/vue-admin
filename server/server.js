@@ -6,7 +6,6 @@
 3. 使用中间件
  */
 const express = require('express')
-const cors = require('cors')
 const app = express() // 产生应用对象
 const server_port=require('./config/config.default').server_port
 const connectMongo=require('./db/connect')

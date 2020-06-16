@@ -8,7 +8,6 @@
 <script>
 import { mapGetters } from "vuex";
 import { VueTreeList, Tree, TreeNode } from "vue-tree-list";
-import "babel-polyfill"
 export default {
   name: "Dashboard",
   components: {

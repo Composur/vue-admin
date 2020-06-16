@@ -73,32 +73,32 @@ export const constantRoutes = [
       }
     ]
   },
-  // {
-  //   path: "/user",
-  //   component: Layout,
-  //   redirect: "/user/userInfo",
-  //   meta: { title: "用户管理", icon: "user-settings" },
-  //   children: [
-  //     {
-  //       path: "/user/userInfo",
-  //       name: "userManage",
-  //       component: () => import("@/views/user/userInfo"),
-  //       meta: {
-  //         title: "用户管理",
-  //         icon: "user-settings"
-  //       }
-  //     },
-  //     {
-  //       path: "userRole",
-  //       name: "userRole",
-  //       component: () => import("@/views/user/userRole"),
-  //       meta: {
-  //         title: "角色管理",
-  //         icon: "user-settings"
-  //       }
-  //     }
-  //   ]
-  // },
+  {
+    path: "/user",
+    component: Layout,
+    redirect: "/user/userInfo",
+    meta: { title: "用户管理", icon: "user-settings" },
+    children: [
+      {
+        path: "/user/userInfo",
+        name: "userManage",
+        component: () => import("@/views/user/userInfo"),
+        meta: {
+          title: "用户管理",
+          icon: "user-settings"
+        }
+      },
+      {
+        path: "userRole",
+        name: "userRole",
+        component: () => import("@/views/user/userRole"),
+        meta: {
+          title: "角色管理",
+          icon: "user-settings"
+        }
+      }
+    ]
+  },
 
   {
     path: "/form",

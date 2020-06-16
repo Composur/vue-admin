@@ -73,7 +73,7 @@ service.interceptors.response.use(
     }
   },
   error => {
-    // console.log("err" + error); // for debug
+    console.log("err" + error); // for debug
     Message({
       message: error.message,
       type: "error",
@@ -123,6 +123,7 @@ export default function(url, type = "GET", data = {}) {
       })
       .catch(err => {
         // 这里的错误处理和上面拦截器重复了 不要也可以
+        debugger
         return err;
         // const {data}= err
         // if(data&&data.msg){
