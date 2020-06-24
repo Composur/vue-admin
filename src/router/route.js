@@ -125,6 +125,20 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: "/compoents",
+    component: Layout,
+    meta: { title: "组件", icon: "form" },
+    children: [
+      {
+        path: "index",
+        name: "Compoents",
+        component: () => import("@/views/showCom/index"),
+        meta: { title: "组件", icon: "form" }
+      },
+     
+    ]
+  },
 
   {
     path: "/nested",
