@@ -7,6 +7,16 @@
       </div>
       <div class="text item">通过 props $emit 将按钮封装到组件内部，就可以不用重复去写确定和取消事件的代码</div>
     </el-card>
+    <el-card class="box-card">
+      <div slot="header" class="clearfix">
+        <span>通用Loading</span>
+        <el-button style="float: right; padding: 3px 0" type="text" @click="loadingHandle">操作按钮</el-button>
+      </div>
+      <div class="text item">Vue.extend + 单例模式去实现一个loading</div>
+      <div class="text item">
+        <Loading :visible="loadingVisible" text="加载中" />
+      </div>
+    </el-card>
     <ComDialog :visible.sync="visibleDialog" @cancel="cancels" @confirm="confirms">
       <div>dialog</div>
     </ComDialog>
@@ -14,15 +24,18 @@
 </template>
 <script>
 import ComDialog from "@/components/Dialog";
+import Loading from '@/components/Loaing'
 export default {
   name: "Components",
   data() {
     return {
-      visibleDialog: false
+      visibleDialog: false,
+      loadingVisible:false
     };
   },
   components: {
-    ComDialog
+    ComDialog,
+    Loading
   },
   methods: {
     dialog() {
@@ -33,6 +46,9 @@ export default {
     },
     confirms() {
       this.visibleDialog = false;
+    },
+    loadingHandle() {
+      this.loadingVisible = !this.loadingVisible
     }
   }
 };
