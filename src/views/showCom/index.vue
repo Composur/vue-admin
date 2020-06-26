@@ -12,10 +12,15 @@
         <span>通用Loading</span>
         <el-button style="float: right; padding: 3px 0" type="text" @click="loadingHandle">操作按钮</el-button>
       </div>
-      <div class="text item">Vue.extend + 单例模式去实现一个loading</div>
-      <div class="text item">
-        <Loading :visible="loadingVisible" text="加载中" />
+     <div class="box-card-content">
+        <div v-loadings="loadingVisible">
+        <div class="text item">Vue.extend + 单例模式去实现一个loading</div>
+        <ol>
+          <li>可以通过js直接调用方法来显示关闭</li>
+          <li>loading可以将整个页面全部遮罩起来</li>
+        </ol>
       </div>
+     </div>
     </el-card>
     <ComDialog :visible.sync="visibleDialog" @cancel="cancels" @confirm="confirms">
       <div>dialog</div>
@@ -24,18 +29,16 @@
 </template>
 <script>
 import ComDialog from "@/components/Dialog";
-import Loading from '@/components/Loaing'
 export default {
   name: "Components",
   data() {
     return {
       visibleDialog: false,
-      loadingVisible:false
+      loadingVisible: false
     };
   },
   components: {
-    ComDialog,
-    Loading
+    ComDialog
   },
   methods: {
     dialog() {
@@ -48,12 +51,12 @@ export default {
       this.visibleDialog = false;
     },
     loadingHandle() {
-      this.loadingVisible = !this.loadingVisible
+      this.loadingVisible = !this.loadingVisible;
     }
   }
 };
 </script>
-<style>
+<style lang='scss'>
 .text {
   font-size: 14px;
 }
@@ -73,5 +76,8 @@ export default {
 
 .box-card {
   width: 480px;
+  .box-card-content{
+    position: relative;
+  }
 }
 </style>

@@ -1,5 +1,7 @@
 import Vue from 'vue'
 
+import '@/directive/v-loading'
+
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 
 import ElementUI from 'element-ui'
