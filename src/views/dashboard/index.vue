@@ -1,84 +1,78 @@
 <template>
   <div class="dashboard-container">
     <div class="dashboard-text">name: {{ name }}</div>
-    <div>{{es}}</div>
+    <div>{{ es }}</div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { VueTreeList, Tree, TreeNode } from "vue-tree-list";
+import { mapGetters } from 'vuex'
+import { TreeNode } from 'vue-tree-list'
 export default {
-  name: "Dashboard",
-  components: {
-    VueTreeList
-  },
+  name: 'Dashboard',
   data() {
     return {
       newTree: {}
-    };
+    }
+  },
+  computed: {
+    ...mapGetters(['name'])
   },
   methods: {
     touchStart(id) {
-      const dom = document.getElementById(id);
-      console.log(dom);
+      const dom = document.getElementById(id)
+      console.log(dom)
     },
     onDel(node) {
-      console.log(node);
-      node.remove();
+      console.log(node)
+      node.remove()
     },
 
     onChangeName(params) {
-      console.log(params);
+      console.log(params)
     },
 
     onAddNode(params) {
-      console.log(params);
+      console.log(params)
     },
 
     onClick(params) {
-      console.log(params);
+      console.log(params)
     },
 
     addNode() {
       var node = new TreeNode({
-        name: "new node",
+        name: 'new node',
         isLeaf: false
-      });
-      if (!this.data.children) this.data.children = [];
-      this.data.addChildren(node);
+      })
+      if (!this.data.children) this.data.children = []
+      this.data.addChildren(node)
     },
     getNewTree() {
-      var vm = this;
+      var vm = this
 
       function _dfs(oldNode) {
-        var newNode = {};
+        var newNode = {}
 
         for (var k in oldNode) {
-          if (k !== "children" && k !== "parent") {
-            newNode[k] = oldNode[k];
+          if (k !== 'children' && k !== 'parent') {
+            newNode[k] = oldNode[k]
           }
         }
 
         if (oldNode.children && oldNode.children.length > 0) {
-          newNode.children = [];
+          newNode.children = []
           for (var i = 0, len = oldNode.children.length; i < len; i++) {
-            newNode.children.push(_dfs(oldNode.children[i]));
+            newNode.children.push(_dfs(oldNode.children[i]))
           }
         }
-        return newNode;
+        return newNode
       }
 
-      vm.newTree = _dfs(vm.data);
-    }
-  },
-  computed: {
-    ...mapGetters(["name"]),
-    es:function(){
-      // return this.newTree.test?.test
+      vm.newTree = _dfs(vm.data)
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

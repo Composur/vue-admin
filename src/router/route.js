@@ -1,6 +1,6 @@
-import Layout from "@/layout";
+import Layout from '@/layout'
 // 当设置 true 的时候该路由不会在侧边栏出现 如401，login等页面，或者如一些编辑页面/edit/1
-//当设置 noRedirect 的时候该路由在面包屑导航中不可被点击
+// 当设置 noRedirect 的时候该路由在面包屑导航中不可被点击
 // 当你一个路由下面的 children 声明的路由大于1个时，自动会变成嵌套的模式--如组件页面
 // 只有一个时，会将那个子路由当做根路由显示在侧边栏--如引导页面
 // 若你想不管路由下面的 children 声明的个数都显示你的根路由
@@ -48,173 +48,173 @@ export const constantRoutes = [
     ]
   },
   {
-    path: "/login",
-    component: () => import("@/views/login/index"),
+    path: '/login',
+    component: () => import('@/views/login/index'),
     hidden: true
   },
 
   {
-    path: "/404",
-    component: () => import("@/views/404"),
+    path: '/404',
+    component: () => import('@/views/404'),
     hidden: true
   },
 
   {
-    path: "/",
+    path: '/',
     component: Layout,
-    redirect: "/dashboard",
+    redirect: '/dashboard',
     // meta: { title: "Dashboard", icon: "dashboard" }, // 设置该路由进入的权限，支持多个权限叠加
     children: [
       {
-        path: "dashboard",
-        name: "Dashboard",
-        component: () => import("@/views/dashboard/index"),
-        meta: { title: "主面板", icon: "dashboard" }
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('@/views/dashboard/index'),
+        meta: { title: '主面板', icon: 'dashboard' }
       }
     ]
   },
   {
-    path: "/user",
+    path: '/user',
     component: Layout,
-    redirect: "/user/userInfo",
-    meta: { title: "用户管理", icon: "user-settings" },
+    redirect: '/user/userInfo',
+    meta: { title: '用户管理', icon: 'user-settings' },
     children: [
       {
-        path: "/user/userInfo",
-        name: "userManage",
-        component: () => import("@/views/user/userInfo"),
+        path: '/user/userInfo',
+        name: 'userManage',
+        component: () => import('@/views/user/userInfo'),
         meta: {
-          title: "用户管理",
-          icon: "user-settings"
+          title: '用户管理',
+          icon: 'user-settings'
         }
       },
       {
-        path: "userRole",
-        name: "userRole",
-        component: () => import("@/views/user/userRole"),
+        path: 'userRole',
+        name: 'userRole',
+        component: () => import('@/views/user/userRole'),
         meta: {
-          title: "角色管理",
-          icon: "user-settings"
+          title: '角色管理',
+          icon: 'user-settings'
         }
       }
     ]
   },
 
   {
-    path: "/form",
+    path: '/form',
     component: Layout,
-    meta: { title: "表单", icon: "form" },
+    meta: { title: '表单', icon: 'form' },
     children: [
       {
-        path: "index",
-        name: "Form",
-        component: () => import("@/views/form/index"),
-        meta: { title: "表单", icon: "form" }
+        path: 'index',
+        name: 'Form',
+        component: () => import('@/views/form/index'),
+        meta: { title: '表单', icon: 'form' }
       },
       {
-        path: "treeTable",
-        name: "treeTable",
-        component: () => import("@/views/form/treeTable"),
-        meta: { title: "树形表格", icon: "tree" }
+        path: 'treeTable',
+        name: 'treeTable',
+        component: () => import('@/views/form/treeTable'),
+        meta: { title: '树形表格', icon: 'tree' }
       },
       {
-        path: "treeMenu",
-        name: "treeMenu",
-        component: () => import("@/views/form/treeMenu"),
-        meta: { title: "树形菜单", icon: "tree" }
+        path: 'treeMenu',
+        name: 'treeMenu',
+        component: () => import('@/views/form/treeMenu'),
+        meta: { title: '树形菜单', icon: 'tree' }
       }
     ]
   },
   {
-    path: "/compoents",
+    path: '/compoents',
     component: Layout,
-    meta: { title: "组件", icon: "form" },
+    meta: { title: '组件', icon: 'form' },
     children: [
       {
-        path: "index",
-        name: "Compoents",
-        component: () => import("@/views/showCom/index"),
-        meta: { title: "组件", icon: "form" }
-      },
-     
+        path: 'index',
+        name: 'Compoents',
+        component: () => import('@/views/showCom/index'),
+        meta: { title: '组件', icon: 'form' }
+      }
+
     ]
   },
 
   {
-    path: "/nested",
+    path: '/nested',
     component: Layout,
-    redirect: "/nested/menu1",
-    name: "Nested",
+    redirect: '/nested/menu1',
+    name: 'Nested',
     meta: {
-      title: "嵌套",
-      icon: "nested"
+      title: '嵌套',
+      icon: 'nested'
     },
     children: [
       {
-        path: "menu1",
-        component: () => import("@/views/nested/menu1/index"), // Parent router-view
-        name: "Menu1",
-        meta: { title: "Menu1" },
+        path: 'menu1',
+        component: () => import('@/views/nested/menu1/index'), // Parent router-view
+        name: 'Menu1',
+        meta: { title: 'Menu1' },
         children: [
           {
-            path: "menu1-1",
-            component: () => import("@/views/nested/menu1/menu1-1"),
-            name: "Menu1-1",
-            meta: { title: "Menu1-1" }
+            path: 'menu1-1',
+            component: () => import('@/views/nested/menu1/menu1-1'),
+            name: 'Menu1-1',
+            meta: { title: 'Menu1-1' }
           },
           {
-            path: "menu1-2",
-            component: () => import("@/views/nested/menu1/menu1-2"),
-            name: "Menu1-2",
-            meta: { title: "Menu1-2" },
+            path: 'menu1-2',
+            component: () => import('@/views/nested/menu1/menu1-2'),
+            name: 'Menu1-2',
+            meta: { title: 'Menu1-2' },
             children: [
               {
-                path: "menu1-2-1",
+                path: 'menu1-2-1',
                 component: () =>
-                  import("@/views/nested/menu1/menu1-2/menu1-2-1"),
-                name: "Menu1-2-1",
-                meta: { title: "Menu1-2-1" }
+                  import('@/views/nested/menu1/menu1-2/menu1-2-1'),
+                name: 'Menu1-2-1',
+                meta: { title: 'Menu1-2-1' }
               },
               {
-                path: "menu1-2-2",
+                path: 'menu1-2-2',
                 component: () =>
-                  import("@/views/nested/menu1/menu1-2/menu1-2-2"),
-                name: "Menu1-2-2",
-                meta: { title: "Menu1-2-2" }
+                  import('@/views/nested/menu1/menu1-2/menu1-2-2'),
+                name: 'Menu1-2-2',
+                meta: { title: 'Menu1-2-2' }
               }
             ]
           },
           {
-            path: "menu1-3",
-            component: () => import("@/views/nested/menu1/menu1-3"),
-            name: "Menu1-3",
-            meta: { title: "Menu1-3" }
+            path: 'menu1-3',
+            component: () => import('@/views/nested/menu1/menu1-3'),
+            name: 'Menu1-3',
+            meta: { title: 'Menu1-3' }
           }
         ]
       },
       {
-        path: "menu2",
-        component: () => import("@/views/nested/menu2/index"),
-        meta: { title: "menu2" }
+        path: 'menu2',
+        component: () => import('@/views/nested/menu2/index'),
+        meta: { title: 'menu2' }
       }
     ]
   },
 
   {
-    path: "/github",
+    path: '/github',
     component: Layout,
-    meta: { title: "github", icon: "link" },
+    meta: { title: 'github', icon: 'link' },
     children: [
       {
-        path: "https://github.com/Composur",
-        meta: { title: "github", icon: "link" }
+        path: 'https://github.com/Composur',
+        meta: { title: 'github', icon: 'link' }
       }
     ]
-  },
+  }
 
   // 404 page must be placed at the end !!!
   // { path: "*", redirect: "/404", hidden: true }
-];
+]
 
 // 代表那些需求动态判断权限并通过 addRoutes 动态添加的页面
 // export const asyncRoutes = [

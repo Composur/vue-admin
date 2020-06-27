@@ -4,12 +4,12 @@
     <div v-show="visible" class="custom-loading-mask">
       <!--loading中间的图标-->
       <div class="custom-loading-spinner">
-        <i class="custom-spinner-icon"></i>
+        <i class="custom-spinner-icon" />
         <div class="lds-ring">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
+          <div />
+          <div />
+          <div />
+          <div />
         </div>
         <!--loading上面显示的文字-->
         <p class="custom-loading-text">{{ text }}</p>
@@ -39,11 +39,11 @@ export default {
   // 改写成 构造函数的方式使用
   data() {
     return {
-      text: "加载中...",
+      text: '加载中...',
       visible: false
-    };
+    }
   }
-};
+}
 </script>
 <style lang="scss">
 .custom-loading-mask {

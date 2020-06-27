@@ -7,7 +7,7 @@ const state = {
     withoutAnimation: false
   },
   device: 'desktop',
-  language:getLanguage()
+  language: getLanguage()
 }
 
 // 0 关闭侧边栏 1 开启
@@ -32,11 +32,11 @@ const mutations = {
   },
   SET_LANGUAGE: (state, lang) => {
     state.language = lang
-  },
+  }
 
 }
 
-// 侧边栏信息的 action 
+// 侧边栏信息的 action
 const actions = {
   toggleSideBar({ commit }) {
     commit('TOGGLE_SIDEBAR')
@@ -47,8 +47,8 @@ const actions = {
   toggleDevice({ commit }, device) {
     commit('TOGGLE_DEVICE', device)
   },
-  setLanguage({commit},lang){
-    commit('SET_LANGUAGE',lang)
+  setLanguage({ commit }, lang) {
+    commit('SET_LANGUAGE', lang)
   }
 }
 

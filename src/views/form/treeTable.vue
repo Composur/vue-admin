@@ -1,20 +1,20 @@
 <template>
   <div class="contains">
     <h1>树表格实现</h1>
-    <tree-table ref="recTree" :list.sync="treeDataSource" @actionFunc="actionFunc" @deleteFunc="deleteFunc" @handlerExpand="handlerExpand" @orderByFunc="orderByFunc"></tree-table>
+    <tree-table ref="recTree" :list.sync="treeDataSource" @actionFunc="actionFunc" @deleteFunc="deleteFunc" @handlerExpand="handlerExpand" @orderByFunc="orderByFunc" />
   </div>
 </template>
 <script>
 import dataJson from './treeData.json'
 import treeTable from '@/components/TreeTable/Table'
 export default {
+  components: {
+    treeTable
+  },
   data() {
     return {
       treeDataSource: dataJson
     }
-  },
-  components: {
-    treeTable
   },
   methods: {
     orderByFunc(val) {

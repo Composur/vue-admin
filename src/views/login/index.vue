@@ -1,6 +1,6 @@
 <template>
   <div class="login-container">
-     <lang-select class="set-language" />
+    <lang-select class="set-language" />
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
       <div class="title-container">
         <!-- <h3 class="title">Login Form</h3> -->
@@ -41,11 +41,11 @@
         </span>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">{{$t('login.logIn')}}</el-button>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">{{ $t('login.logIn') }}</el-button>
 
       <div class="tips">
-        <span style="margin-right:20px;">{{$t('login.username')}} : admin </span>
-        <span> {{$t('login.password')}} : {{$t('login.any')}}</span>
+        <span style="margin-right:20px;">{{ $t('login.username') }} : admin </span>
+        <span> {{ $t('login.password') }} : {{ $t('login.any') }}</span>
       </div>
 
     </el-form>
@@ -54,11 +54,11 @@
 
 <script>
 // import {mapMutations} from 'vuex';
-import {  } from '@/utils/validate'
+import { } from '@/utils/validate'
 import LangSelect from '@/components/LangSelect'
 export default {
   name: 'Login',
-  components:{LangSelect},
+  components: { LangSelect },
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!(value)) {
@@ -76,7 +76,7 @@ export default {
     }
     return {
       loginForm: {
-        username:('admin'),
+        username: ('admin'),
         password: ('admin')
       },
       loginRules: {
@@ -114,9 +114,9 @@ export default {
           this.loading = true
           // 没有找到好的 命名空间下 action 的注册方式 先用 dispatch 吧
           // this[test](this.loginForm)
-          this.$store.dispatch('user/get_login', { 
-            username:btoa(this.loginForm.username),
-            password:btoa(this.loginForm.password)
+          this.$store.dispatch('user/get_login', {
+            username: btoa(this.loginForm.username),
+            password: btoa(this.loginForm.password)
           }).then((res) => {
             this.$router.replace({ path: this.redirect || '/' })
             this.loading = false

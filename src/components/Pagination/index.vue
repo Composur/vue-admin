@@ -1,6 +1,5 @@
 <template>
-<el-pagination :current-page='currentPage' :page-size="pageSize" :total="total" @size-change="handleSizeChange" @current-change='handleCurrentChange' background layout="prev, pager, next">
-</el-pagination>
+  <el-pagination :current-page="currentPage" :page-size="pageSize" :total="total" background layout="prev, pager, next" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
 </template>
 
 <script>
@@ -9,11 +8,11 @@ export default {
   props: {
     page: {
       type: Number,
-      default: 1,
+      default: 1
     },
     limit: {
       type: Number,
-      default: 5,
+      default: 5
     },
     total: {
       type: Number,
@@ -28,7 +27,7 @@ export default {
       },
       set(val) {
         this.$emit('update:page', val)
-      },
+      }
     },
     pageSize: {
       get() {
@@ -36,7 +35,7 @@ export default {
       },
       set(val) {
         this.$emit('update:limit', val)
-      },
+      }
     }
   },
   methods: {
@@ -44,8 +43,8 @@ export default {
       this.currentPage = currentPage
     },
     handleSizeChange(pageSize) {
-      this.pageSize = pageSize;
-    },
+      this.pageSize = pageSize
+    }
 
   }
 }

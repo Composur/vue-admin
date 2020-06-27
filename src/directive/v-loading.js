@@ -1,10 +1,10 @@
-import Vue from "vue";
-import LoadingComponent from "@/components/Loading/Loading.vue";
+import Vue from 'vue'
+import LoadingComponent from '@/components/Loading/Loading.vue'
 // 使用 Vue.extend构造组件子类
-const LoadingContructor = Vue.extend(LoadingComponent);
+const LoadingContructor = Vue.extend(LoadingComponent)
 
 // 定义一个名为loading的指令
-Vue.directive("loadings", {
+Vue.directive('loadings', {
   /**
    * 只调用一次，在指令第一次绑定到元素时调用，可以在这里做一些初始化的设置
    * @param {*} el 指令要绑定的元素
@@ -12,14 +12,14 @@ Vue.directive("loadings", {
    */
   bind(el, binding) {
     const instance = new LoadingContructor({
-      el: document.createElement("div"),
+      el: document.createElement('div'),
       data: {}
-    });
-    el.appendChild(instance.$el);
-    el.instance = instance;
+    })
+    el.appendChild(instance.$el)
+    el.instance = instance
     Vue.nextTick(() => {
-      el.instance.visible = binding.value;
-    });
+      el.instance.visible = binding.value
+    })
   },
   /**
    * 所在组件的 VNode 更新时调用
@@ -29,7 +29,7 @@ Vue.directive("loadings", {
   update(el, binding) {
     // 通过对比值的变化判断loading是否显示
     if (binding.oldValue !== binding.value) {
-      el.instance.visible = binding.value;
+      el.instance.visible = binding.value
     }
   },
   /**
@@ -37,11 +37,11 @@ Vue.directive("loadings", {
    * @param {*} el
    */
   unbind(el) {
-    const mask = el.instance.$el;
+    const mask = el.instance.$el
     if (mask.parentNode) {
-      mask.parentNode.removeChild(mask);
+      mask.parentNode.removeChild(mask)
     }
-    el.instance.$destroy();
-    el.instance = undefined;
+    el.instance.$destroy()
+    el.instance = undefined
   }
-});
+})

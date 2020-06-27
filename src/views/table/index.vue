@@ -1,45 +1,42 @@
 <template>
-<div class="table-container">
-  <el-table ref="dragTable" v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
-    <el-table-column align="center" label="ID" width="95">
-      <template slot-scope="scope">
-        {{ scope.$index }}
-      </template>
-    </el-table-column>
-    <el-table-column label="Title">
-      <template slot-scope="scope">
-        {{ scope.row.title }}
-      </template>
-    </el-table-column>
-    <el-table-column label="Author" width="110" align="center">
-      <template slot-scope="scope">
-        <span>{{ scope.row.author }}</span>
-      </template>
-    </el-table-column>
-    <el-table-column label="Pageviews" width="110" align="center">
-      <template slot-scope="scope">
-        {{ scope.row.pageviews }}
-      </template>
-    </el-table-column>
-    <el-table-column class-name="status-col" label="Status" width="110" align="center">
-      <template slot-scope="scope">
-        <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
-      </template>
-    </el-table-column>
-    <el-table-column align="center" prop="created_at" label="Display_time" width="200">
-      <template slot-scope="scope">
-        <i class="el-icon-time" />
-        <span>{{ scope.row.display_time }}</span>
-      </template>
-    </el-table-column>
-  </el-table>
-</div>
+  <div class="table-container">
+    <el-table ref="dragTable" v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+      <el-table-column align="center" label="ID" width="95">
+        <template slot-scope="scope">
+          {{ scope.$index }}
+        </template>
+      </el-table-column>
+      <el-table-column label="Title">
+        <template slot-scope="scope">
+          {{ scope.row.title }}
+        </template>
+      </el-table-column>
+      <el-table-column label="Author" width="110" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.author }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="Pageviews" width="110" align="center">
+        <template slot-scope="scope">
+          {{ scope.row.pageviews }}
+        </template>
+      </el-table-column>
+      <el-table-column class-name="status-col" label="Status" width="110" align="center">
+        <template slot-scope="scope">
+          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column align="center" prop="created_at" label="Display_time" width="200">
+        <template slot-scope="scope">
+          <i class="el-icon-time" />
+          <span>{{ scope.row.display_time }}</span>
+        </template>
+      </el-table-column>
+    </el-table>
+  </div>
 </template>
 
 <script>
-import {
-  getList
-} from '@/api/table'
 import Sortable from 'sortablejs'
 export default {
   name: 'DragTable',
@@ -67,7 +64,6 @@ export default {
   methods: {
     fetchData() {
       setTimeout(() => {
-
         for (let i = 0; i < 5; i++) {
           const testData = {
             title: '可上下拖动改变 index',
@@ -81,15 +77,14 @@ export default {
         this.listLoading = false
         this.$nextTick(() => {
           this.setSort()
-
         })
-      }, 500);
+      }, 500)
     },
     setSort() {
       const el = this.$refs.dragTable.$el.querySelectorAll('.el-table__body-wrapper > table > tbody')[0]
       this.sortable = Sortable.create(el, {
         ghostClass: 'sortable-ghost', // Class name for the drop placeholder,
-        setData: function (dataTransfer) {
+        setData: function(dataTransfer) {
           // to avoid Firefox bug
           // Detail see : https://github.com/RubaXa/Sortable/issues/1012
           dataTransfer.setData('Text', '')

@@ -1,48 +1,52 @@
 <template>
-<div class="tree-table">
-  <div class="tree-head">
-    <table>
-      <tr>
-        <td class="td1">职位名称</td>
-        <td class="td2">负责人</td>
-        <td class="td3" @click="isDesc=!isDesc">
-          创建时间
-          <div class="arrow">
-            <span class="up-arrow" :class="{'sort':isDesc}"></span>
-            <span class="down-arrow" :class="{'sort':!isDesc}"></span>
-          </div>
-        </td>
-        <td class="td4">工作经验</td>
-        <td class="td5">发布时间</td>
-        <td class="td6">操作</td>
-      </tr>
-    </table>
-  </div>
-  <div id="scrollWrap" class="tree-wrap">
-    <div class="tree-body">
-      <table v-if='treeDataSource.length>0'>
-        <tbody>
-          <tr>
-            <td>
-               <!-- div -->
-              <tree-item v-for="(model,i) in treeDataSource" :key="'root_node_'+i" :root="0" :num="i" @actionFunc="actionFunc" @deleteFunc="deleteFunc" @handlerExpand="handlerExpand" :nodes="treeDataSource.length" :trees.sync="treeDataSource" :model.sync="model">
-              </tree-item>
-            </td>
-          </tr>
-        </tbody>
+  <div class="tree-table">
+    <div class="tree-head">
+      <table>
+        <tr>
+          <td class="td1">职位名称</td>
+          <td class="td2">负责人</td>
+          <td class="td3" @click="isDesc=!isDesc">
+            创建时间
+            <div class="arrow">
+              <span class="up-arrow" :class="{'sort':isDesc}" />
+              <span class="down-arrow" :class="{'sort':!isDesc}" />
+            </div>
+          </td>
+          <td class="td4">工作经验</td>
+          <td class="td5">发布时间</td>
+          <td class="td6">操作</td>
+        </tr>
       </table>
     </div>
+    <div id="scrollWrap" class="tree-wrap">
+      <div class="tree-body">
+        <table v-if="treeDataSource.length>0">
+          <tbody>
+            <tr>
+              <td>
+                <!-- div -->
+                <tree-item v-for="(model,i) in treeDataSource" :key="'root_node_'+i" :root="0" :num="i" :nodes="treeDataSource.length" :trees.sync="treeDataSource" :model.sync="model" @actionFunc="actionFunc" @deleteFunc="deleteFunc" @handlerExpand="handlerExpand" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
 import TreeItem from './Item'
 export default {
-  name: 'treeTable',
-  props: ['list'],
+  name: 'TreeTable',
   components: {
     'tree-item': TreeItem
+  },
+  props: {
+    'list': {
+      type: Array,
+      required: true
+    }
   },
   data() {
     return {
@@ -50,6 +54,7 @@ export default {
       treeDataSource: []
     }
   },
+  computed: {},
 
   watch: {
     'list': {
@@ -63,13 +68,19 @@ export default {
       this.$emit('orderByFunc', nelVal)
     }
   },
-  computed: {},
+
+  mounted() {
+    const vm = this
+    vm.$nextTick(() => {
+      vm.initTreeData()
+    })
+  },
   methods: {
     initTreeData() {
       console.log('处理前的:', JSON.parse(JSON.stringify(this.list)))
       // 这里一定要转化，要不然他们的值监听不到变化
-      let tempData = JSON.parse(JSON.stringify(this.list))
-      let reduceDataFunc = (data, level) => {
+      const tempData = JSON.parse(JSON.stringify(this.list))
+      const reduceDataFunc = (data, level) => {
         data.map((m, i) => {
           m.isExpand = false
           m.children = m.children || []
@@ -85,13 +96,6 @@ export default {
       console.log('处理后的:', tempData)
       this.treeDataSource = tempData
     },
-    getMore() {
-      alert('滚动到底部加载更多')
-      // 滚动到最后
-      $('#scrollWrap').mCustomScrollbar('scrollTo', 'top', {
-        scrollInertia: 0
-      })
-    },
     // 编辑
     actionFunc(m) {
       this.$emit('actionFunc', m)
@@ -104,13 +108,6 @@ export default {
     handlerExpand(m) {
       this.$emit('handlerExpand', m)
     }
-  },
-
-  mounted() {
-    const vm = this
-    vm.$nextTick(() => {
-      vm.initTreeData()
-    })
   }
 }
 </script>

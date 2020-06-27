@@ -1,48 +1,54 @@
 <template>
-<div :class="tdClass">
-  <span class="before-line" v-if="root !== 0 && nodes !== 1" :style="{'left':model.bLeft + 'px'}"></span>
-  <table>
-    <tr>
-      <td :colspan="colSpan">  
-        <table>
-          <tr class="leve" :class="levelClass">
-            <td class="td1">
-              <div class="td-title" @dblclick="handlerExpand(model)">
-                <span v-if="model.children.length > 0" class="tree-close" :class="{'tree-open':model.isExpand}" @click="handlerExpand(model)"></span>
-                <a class="ellipsis">
-                  <!-- <i class="t-icon m-dep"></i> -->
-                  <span :title="model.ObjectName">{{model.ObjectName}}</span>
-                </a>
-              </div>
-            </td>
-            <td class="td2">
-              {{model.ResponsibleName}}
-            </td>
-            <td class="td3">{{model.CreateTime|formatDate}}</td>
-            <td class="td4">
-              <span :title="model.Experience" class="ellipsis">{{model.Experience}}</span>
-            </td>
-            <td class="td5">{{model.BelongTo}}天</td>
-            <td class="td6">
-              <a class="reset" href="javascript:;" @click="actionFunc(model)">编辑</a>
-              <i class="line"></i>
-              <a class="delete" href="javascript:;" @click="deleteFunc(model)">删除</a>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-  <div v-show="model.isExpand" class="other-node" :class="otherNodeClass">
-    <tree-item v-for="(m, i) in model.children" :key="String('child_node'+i)" :num='i' :root="1" @actionFunc="actionFunc" @deleteFunc="deleteFunc" @handlerExpand="handlerExpand" :nodes.sync='model.children.length' :trees.sync='trees' :model.sync="m">
-    </tree-item>
+  <div :class="tdClass">
+    <span v-if="root !== 0 && nodes !== 1" class="before-line" :style="{'left':model.bLeft + 'px'}" />
+    <table>
+      <tr>
+        <td :colspan="colSpan">
+          <table>
+            <tr class="leve" :class="levelClass">
+              <td class="td1">
+                <div class="td-title" @dblclick="handlerExpand(model)">
+                  <span v-if="model.children.length > 0" class="tree-close" :class="{'tree-open':model.isExpand}" @click="handlerExpand(model)" />
+                  <a class="ellipsis">
+                    <!-- <i class="t-icon m-dep"></i> -->
+                    <span :title="model.ObjectName">{{ model.ObjectName }}</span>
+                  </a>
+                </div>
+              </td>
+              <td class="td2">
+                {{ model.ResponsibleName }}
+              </td>
+              <td class="td3">{{ model.CreateTime|formatDate }}</td>
+              <td class="td4">
+                <span :title="model.Experience" class="ellipsis">{{ model.Experience }}</span>
+              </td>
+              <td class="td5">{{ model.BelongTo }}天</td>
+              <td class="td6">
+                <a class="reset" href="javascript:;" @click="actionFunc(model)">编辑</a>
+                <i class="line" />
+                <a class="delete" href="javascript:;" @click="deleteFunc(model)">删除</a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <div v-show="model.isExpand" class="other-node" :class="otherNodeClass">
+      <tree-item v-for="(m, i) in model.children" :key="String('child_node'+i)" :num="i" :root="1" :nodes.sync="model.children.length" :trees.sync="trees" :model.sync="m" @actionFunc="actionFunc" @deleteFunc="deleteFunc" @handlerExpand="handlerExpand" />
+    </div>
   </div>
-</div>
 </template>
 
 <script>
 export default {
-  name: 'treeItem',
+  name: 'TreeItem',
+  filters: {
+    formatDate: function(date) {
+      // 后期自己格式化
+      return date // Utility.formatDate(date, 'yyyy/MM/dd')
+    }
+  },
+  // eslint-disable-next-line vue/require-prop-types
   props: ['model', 'num', 'nodes', 'root', 'trees'],
   data() {
     return {
@@ -107,12 +113,6 @@ export default {
     // 编辑
     actionFunc(m) {
       this.$emit('actionFunc', m)
-    }
-  },
-  filters: {
-    formatDate: function (date) {
-      // 后期自己格式化
-      return date //Utility.formatDate(date, 'yyyy/MM/dd')
     }
   }
 }

@@ -8,10 +8,10 @@
 </template>
 
 <script>
-import { isExternal } from "@/utils/validate";
+import { isExternal } from '@/utils/validate'
 
 export default {
-  name: "navLink",
+  name: 'NavLink',
   props: {
     to: {
       type: String,
@@ -21,22 +21,22 @@ export default {
   data: function() {
     return {
       test: 1
-    };
+    }
   },
   methods: {
     linkProps(url) {
       if (isExternal(url)) {
         return {
-          is: "a",
+          is: 'a',
           href: url,
-          target: "_blank",
-          rel: "noopener"
-        };
+          target: '_blank',
+          rel: 'noopener'
+        }
       }
       return {
-        is: "router-link",
+        is: 'router-link',
         to: url
-      };
+      }
     },
     clickLink(path) {
       // 点击-不改变URL路径的情况下从新render页面
@@ -49,11 +49,11 @@ export default {
       //   }
       // });
       // 方法二：
-      const { fullPath } = this.$route;
+      const { fullPath } = this.$route
       this.$router.replace({
-        path: "/redirect" + fullPath
-      });
+        path: '/redirect' + fullPath
+      })
     }
   }
-};
+}
 </script>
