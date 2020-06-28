@@ -19,10 +19,15 @@ Vue.directive('loadings', {
     el.instance = instance
     Vue.nextTick(() => {
       el.instance.visible = binding.value
+      // 显示的文案
+      if (binding.arg) {
+        el.instance.text = binding.arg
+      }
     })
   },
   /**
-   * 所在组件的 VNode 更新时调用
+   * 所在组件的 VNode 更新时调用，但是可能发生在其子 VNode 更新之前
+   * 指令的值可能发生了改变，也可能没有可以通过比较新旧值来进行判断
    * @param {*} el
    * @param {*} binding
    */

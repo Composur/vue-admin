@@ -37,7 +37,8 @@ export default {
   data() {
     return {
       visibleDialog: false,
-      loadingVisible: false
+      loadingVisible: false,
+      text: 'ba加载中...'
     }
   },
   methods: {
