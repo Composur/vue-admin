@@ -22,6 +22,40 @@
         </div>
       </div>
     </el-card>
+    <el-card class="box-card">
+      <div slot="header" class="clearfix">
+        <span>极简评分组件</span>
+        <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+      </div>
+      <div class="box-card-content">
+        <div class="text item">关键代码</div>
+        <ol>
+          <li>纯 css 如果用需要加入 js 进行改造</li>
+          <li>
+            翻转显示
+            <pre>
+        display: flex;
+        flex-flow: row-reverse;
+        </pre>
+          </li>
+          <li>
+            相连的显示
+            <pre>
+      input[name="rate"] {
+          &:checked,
+          &:checked ~ input[name="rate"] {
+            &::after {
+            content: "\e73c";
+            color: $main;
+          }
+        }
+      }
+    </pre>
+          </li>
+        </ol>
+        <Rate />
+      </div>
+    </el-card>
     <ComDialog :visible.sync="visibleDialog" @cancel="cancels" @confirm="confirms">
       <div>dialog</div>
     </ComDialog>
@@ -29,16 +63,18 @@
 </template>
 <script>
 import ComDialog from '@/components/Dialog'
+import Rate from '@/components/Rate'
 export default {
   name: 'Components',
   components: {
-    ComDialog
+    ComDialog,
+    Rate
   },
   data() {
     return {
       visibleDialog: false,
       loadingVisible: false,
-      text: 'ba加载中...'
+      text: '加载中...'
     }
   },
   methods: {
@@ -57,7 +93,7 @@ export default {
   }
 }
 </script>
-<style lang='scss'>
+<style lang='scss' scoped>
 .text {
   font-size: 14px;
 }
@@ -77,7 +113,7 @@ export default {
 
 .box-card {
   width: 480px;
-  .box-card-content{
+  .box-card-content {
     position: relative;
   }
 }
