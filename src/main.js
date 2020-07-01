@@ -1,7 +1,5 @@
 import Vue from 'vue'
 
-import '@/directive/v-loading'
-
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 
 import ElementUI from 'element-ui'
@@ -18,7 +16,8 @@ import i18n from './lang'
 
 import '@/icons' // icon
 import '@/permission.js' // permission control
-
+// 全局指令
+import directive from '@/directive'
 import * as filters from './filters' // global filters
 /**
  * If you don't want to use mock-server
@@ -43,6 +42,8 @@ Vue.use(ElementUI, {
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
+// 全局指令
+Vue.use(directive)
 
 // 如果想要中文版 element-ui，按如下方式声明
 // Vue.use(ElementUI)
