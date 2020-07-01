@@ -117,6 +117,7 @@ export default {
   width: 100%;
   height: 100%;
   position: relative;
+
   .center {
     text-align: center;
   }
@@ -135,7 +136,7 @@ export default {
   }
 
   .td-border {
-    border-bottom: 1px solid #E8E8E8;
+    border-bottom: 1px solid #e8e8e8;
 
     .leve {
       // 屏蔽双击不能选择文本样式
@@ -234,13 +235,13 @@ export default {
     .iconfont {
       color: #414959;
       position: relative;
-      top: 0px;
+      top: 0;
       left: 5px;
       font-size: 14px;
     }
   }
 
-  >div {
+  > div {
     position: absolute;
     width: 100%;
   }
@@ -251,11 +252,11 @@ export default {
   }
 
   .tree-head {
-   @extend .line-height;
+    @extend .line-height;
 
     td {
       color: rgba(0, 0, 0, 0.45);
-      border-bottom: 2px solid #E8E8E8;
+      border-bottom: 2px solid #e8e8e8;
     }
 
     .arrow {
@@ -280,7 +281,7 @@ export default {
         border-color: transparent transparent #ddd transparent;
 
         &.sort {
-          border-bottom-color: #3C4454;
+          border-bottom-color: #3c4454;
         }
       }
 
@@ -289,7 +290,7 @@ export default {
         border-color: #ddd transparent transparent transparent;
 
         &.sort {
-          border-top-color: #3C4454;
+          border-top-color: #3c4454;
         }
       }
     }
@@ -312,15 +313,16 @@ export default {
 
     td {
       @extend .line-height;
+
       color: rgba(0, 0, 0, 0.85);
       font-size: 14px;
 
       .reset {
-        color: #1890FF;
+        color: #1890ff;
       }
 
       .delete {
-        color: #F5222D;
+        color: #f5222d;
       }
 
       .line {
@@ -354,13 +356,13 @@ export default {
       .tree-close {
         left: -12px;
         top: 14px;
-        border-color: transparent transparent transparent #AAAAAA;
+        border-color: transparent transparent transparent #aaa;
       }
 
       .tree-open {
         left: -17px;
         top: 17px;
-        border-color: #AAAAAA transparent transparent;
+        border-color: #aaa transparent transparent;
       }
     }
 
@@ -399,7 +401,7 @@ export default {
     .other-node {
       position: relative;
 
-      >.not-border:not(:last-child) {
+      > .not-border:not(:last-child) {
         position: relative;
 
         .before-line {
@@ -407,7 +409,7 @@ export default {
           position: absolute;
           width: 1px;
           height: 100%;
-          background-color: #E8E8E8;
+          background-color: #e8e8e8;
           border: none;
           top: -20px;
           z-index: 1;
@@ -423,7 +425,7 @@ export default {
           position: absolute;
           width: 1px;
           height: 40px;
-          background-color: #E8E8E8;
+          background-color: #e8e8e8;
           border: none;
           left: -12px;
           top: -20px;
@@ -435,7 +437,7 @@ export default {
           left: -11px;
           position: absolute;
           right: auto;
-          background-color: #E8E8E8;
+          background-color: #e8e8e8;
           height: 1px;
           top: 19px;
           width: 16px;

@@ -3,14 +3,14 @@
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span>通用Dialog</span>
-        <el-button style="float: right; padding: 3px 0" type="text" @click="dialog">操作按钮</el-button>
+        <el-button style="float: right; padding: 3px 0;" type="text" @click="dialog">操作按钮</el-button>
       </div>
       <div class="text item">通过 props $emit 将按钮封装到组件内部，就可以不用重复去写确定和取消事件的代码</div>
     </el-card>
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span>通用Loading</span>
-        <el-button style="float: right; padding: 3px 0" type="text" @click="loadingHandle">操作按钮</el-button>
+        <el-button style="float: right; padding: 3px 0;" type="text" @click="loadingHandle">操作按钮</el-button>
       </div>
       <div class="box-card-content">
         <div v-loadings="loadingVisible">
@@ -25,7 +25,7 @@
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span>极简评分组件</span>
-        <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+        <el-button style="float: right; padding: 3px 0;" type="text">操作按钮</el-button>
       </div>
       <div class="box-card-content">
         <div class="text item">关键代码</div>
@@ -102,17 +102,19 @@ export default {
   margin-bottom: 18px;
 }
 
-.clearfix:before,
-.clearfix:after {
+.clearfix::before,
+.clearfix::after {
   display: table;
   content: "";
 }
-.clearfix:after {
+
+.clearfix::after {
   clear: both;
 }
 
 .box-card {
   width: 480px;
+
   .box-card-content {
     position: relative;
   }

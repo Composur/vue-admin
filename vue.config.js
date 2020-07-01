@@ -1,5 +1,7 @@
 'use strict'
 const path = require('path')
+// stylelint
+const StyleLintPlugin = require('stylelint-webpack-plugin')
 const defaultSettings = require('./src/settings.js')
 
 function resolve(dir) {
@@ -54,7 +56,14 @@ module.exports = {
       alias: {
         '@': resolve('src')
       }
-    }
+    },
+    plugins: [new StyleLintPlugin({
+      'files': ['**/*.{html,vue,css,sass,scss}'],
+      // 'fix': true,
+      'cache': true
+      // 'emitErrors': true,
+      // 'failOnError': false
+    })]
   },
   chainWebpack(config) {
     config.plugins.delete('preload') // TODO: need test

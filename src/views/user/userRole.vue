@@ -5,7 +5,7 @@
     </div>
     <div>
       <div class="table-container">
-        <el-table v-loading="listLoading" element-loading-text="Loading" :data="tableLists" border style="width: 100%">
+        <el-table v-loading="listLoading" element-loading-text="Loading" :data="tableLists" border style="width: 100%;">
           <el-table-column type="index" label="序号" center width="120" />
           <el-table-column prop="name" label="角色" />
           <el-table-column label="创建日期">
@@ -195,6 +195,7 @@ export default {
 
 .table-top {
   @include clearfix;
+
   .item {
     float: right;
     margin: 0 4px;

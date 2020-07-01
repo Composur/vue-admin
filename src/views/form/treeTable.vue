@@ -58,7 +58,7 @@ export default {
 
 <style>
 .contains {
-    width: 960px;
-    margin: 30px auto;
+  width: 960px;
+  margin: 30px auto;
 }
 </style>
