@@ -5,7 +5,7 @@
     </div>
     <div>
       <div class="table-container">
-        <el-table v-loading="listLoading" element-loading-text="Loading" :data="tableLists" border style="width: 100%">
+        <el-table v-loading="listLoading" element-loading-text="Loading" :data="tableLists" border style="width: 100%;">
           <el-table-column type="index" label="序号" center width="120" />
           <el-table-column prop="username" label="用户名" />
           <el-table-column prop="roleName" label="角色">

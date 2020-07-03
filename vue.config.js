@@ -1,7 +1,8 @@
 'use strict'
 const path = require('path')
-const defaultSettings = require('./src/settings.js')
+// stylelint
 const StyleLintPlugin = require('stylelint-webpack-plugin')
+const defaultSettings = require('./src/settings.js')
 const os = require('os')
 const HappyPack = require('happypack')
 // 多线程打包

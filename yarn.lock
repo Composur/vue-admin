@@ -2844,9 +2844,15 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001020, caniuse-lite@^1.0.30001035:
   integrity sha1-K7U7iqRxay7QjgiNTcgWpf4Imh4=
 
 caniuse-lite@^1.0.30001087, caniuse-lite@^1.0.30001088:
+<<<<<<< HEAD
   version "1.0.30001093"
   resolved "https://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30001093.tgz?cache=0&sync_timestamp=1593643986126&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcaniuse-lite%2Fdownload%2Fcaniuse-lite-1.0.30001093.tgz#833e80f64b1a0455cbceed2a4a3baf19e4abd312"
   integrity sha1-gz6A9ksaBFXLzu0qSjuvGeSr0xI=
+=======
+  version "1.0.30001091"
+  resolved "https://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30001091.tgz#84908c67b98e02c2a56d4afa51e6458b53fb5321"
+  integrity sha1-hJCMZ7mOAsKlbUr6UeZFi1P7UyE=
+>>>>>>> face0cd1d76dfe1d378fe2bc7ef2ad4142f58072
 
 capture-exit@^1.2.0:
   version "1.2.0"
@@ -4094,9 +4100,15 @@ electron-to-chromium@^1.3.378:
   integrity sha1-gdxegqPnK7uDDZPhW8Ne2iu8kQ4=
 
 electron-to-chromium@^1.3.483:
+<<<<<<< HEAD
   version "1.3.487"
   resolved "https://registry.npm.taobao.org/electron-to-chromium/download/electron-to-chromium-1.3.487.tgz?cache=0&sync_timestamp=1593776114228&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Felectron-to-chromium%2Fdownload%2Felectron-to-chromium-1.3.487.tgz#8075e6ea33ee2e79a2dfb2a2467033f014017258"
   integrity sha1-gHXm6jPuLnmi37KiRnAz8BQBclg=
+=======
+  version "1.3.483"
+  resolved "https://registry.npm.taobao.org/electron-to-chromium/download/electron-to-chromium-1.3.483.tgz?cache=0&sync_timestamp=1593071048679&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Felectron-to-chromium%2Fdownload%2Felectron-to-chromium-1.3.483.tgz#9269e7cfc1c8e72709824da171cbe47ca5e3ca9e"
+  integrity sha1-kmnnz8HI5ycJgk2hccvkfKXjyp4=
+>>>>>>> face0cd1d76dfe1d378fe2bc7ef2ad4142f58072
 
 element-ui@2.13.0:
   version "2.13.0"
@@ -12071,6 +12083,7 @@ yargs-parser@^13.1.2:
   version "13.1.2"
   resolved "https://registry.npm.taobao.org/yargs-parser/download/yargs-parser-13.1.2.tgz#130f09702ebaeef2650d54ce6e3e5706f7a4fb38"
   integrity sha1-Ew8JcC667vJlDVTObj5XBvek+zg=
+<<<<<<< HEAD
   dependencies:
     camelcase "^5.0.0"
     decamelize "^1.2.0"
@@ -12082,6 +12095,19 @@ yargs-parser@^18.1.3:
   dependencies:
     camelcase "^5.0.0"
     decamelize "^1.2.0"
+=======
+  dependencies:
+    camelcase "^5.0.0"
+    decamelize "^1.2.0"
+
+yargs-parser@^18.1.3:
+  version "18.1.3"
+  resolved "https://registry.npm.taobao.org/yargs-parser/download/yargs-parser-18.1.3.tgz#be68c4975c6b2abf469236b0c870362fab09a7b0"
+  integrity sha1-vmjEl1xrKr9GkjawyHA2L6sJp7A=
+  dependencies:
+    camelcase "^5.0.0"
+    decamelize "^1.2.0"
+>>>>>>> face0cd1d76dfe1d378fe2bc7ef2ad4142f58072
 
 yargs-parser@^9.0.2:
   version "9.0.2"
@@ -12128,7 +12154,11 @@ yargs@^11.0.0:
 
 yargs@^13.3.2:
   version "13.3.2"
+<<<<<<< HEAD
   resolved "https://registry.npm.taobao.org/yargs/download/yargs-13.3.2.tgz?cache=0&sync_timestamp=1593706853070&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fyargs%2Fdownload%2Fyargs-13.3.2.tgz#ad7ffefec1aa59565ac915f82dccb38a9c31a2dd"
+=======
+  resolved "https://registry.npm.taobao.org/yargs/download/yargs-13.3.2.tgz#ad7ffefec1aa59565ac915f82dccb38a9c31a2dd"
+>>>>>>> face0cd1d76dfe1d378fe2bc7ef2ad4142f58072
   integrity sha1-rX/+/sGqWVZayRX4Lcyzipwxot0=
   dependencies:
     cliui "^5.0.0"

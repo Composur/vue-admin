@@ -6,6 +6,10 @@
 **/*.js
 *.jpg
 *.woff
+<<<<<<< HEAD
+=======
+*.vue
+>>>>>>> face0cd1d76dfe1d378fe2bc7ef2ad4142f58072
 # 测试和打包目录
 /tests/
 /dist/

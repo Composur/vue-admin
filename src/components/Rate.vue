@@ -37,6 +37,7 @@ input {
       transition: color 0.4s ease;
     }
   }
+
   input[name="rate"] {
     &:checked,
     &:checked ~ input[name="rate"] {

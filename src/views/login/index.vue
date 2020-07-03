@@ -41,10 +41,10 @@
         </span>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">{{ $t('login.logIn') }}</el-button>
+      <el-button :loading="loading" type="primary" style="width: 100%; margin-bottom: 30px;" @click.native.prevent="handleLogin">{{ $t('login.logIn') }}</el-button>
 
       <div class="tips">
-        <span style="margin-right:20px;">{{ $t('login.username') }} : admin </span>
+        <span style="margin-right: 20px;">{{ $t('login.username') }} : admin </span>
         <span> {{ $t('login.password') }} : {{ $t('login.any') }}</span>
       </div>
 
@@ -135,6 +135,7 @@ export default {
 
 <style lang="scss">
 /* 修复input 背景不协调 和光标变色 */
+
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
 $bg:#283443;
@@ -156,16 +157,16 @@ $cursor: #fff;
 
     input {
       background: transparent;
-      border: 0px;
+      border: 0;
       -webkit-appearance: none;
-      border-radius: 0px;
+      border-radius: 0;
       padding: 12px 5px 12px 15px;
       color: $light_gray;
       height: 47px;
       caret-color: $cursor;
 
       &:-webkit-autofill {
-        box-shadow: 0 0 0px 1000px $bg inset !important;
+        box-shadow: 0 0 0 1000px $bg inset !important;
         -webkit-text-fill-color: $cursor !important;
       }
     }
@@ -190,7 +191,8 @@ $light_gray:#eee;
   width: 100%;
   background-color: $bg;
   overflow: hidden;
-  .set-language{
+
+  .set-language {
     color: #fff;
     position: absolute;
     top: 3px;
@@ -198,6 +200,7 @@ $light_gray:#eee;
     font-size: 18px;
     cursor: pointer;
   }
+
   .login-form {
     position: relative;
     width: 520px;
@@ -233,7 +236,7 @@ $light_gray:#eee;
     .title {
       font-size: 26px;
       color: $light_gray;
-      margin: 0px auto 40px auto;
+      margin: 0 auto 40px auto;
       text-align: center;
       font-weight: bold;
     }
