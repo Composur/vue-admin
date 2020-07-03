@@ -50,10 +50,10 @@ export default {
       //   }
       // });
       // 方法二：
-      const { fullPath } = this.$route
-      this.$router.replace({
-        path: '/redirect' + fullPath
-      })
+      // const { fullPath } = this.$route
+      // this.$router.replace({
+      //   path: '/redirect' + fullPath
+      // })
     }
   }
 }

@@ -2,6 +2,12 @@
 const path = require('path')
 const defaultSettings = require('./src/settings.js')
 const StyleLintPlugin = require('stylelint-webpack-plugin')
+const os = require('os')
+const HappyPack = require('happypack')
+// 多线程打包
+const HappyPackThreadPool = HappyPack.ThreadPool({
+  size: os.cpus().length
+})
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
@@ -62,6 +68,34 @@ module.exports = {
         'cache': true,
         'emitErrors': true,
         'failOnError': false
+      }),
+      new HappyPack({
+        // 用id来标识 happypack处理那里类文件
+        id: 'vueLoader',
+        // 如何处理  用法和loader 的配置一样
+        loaders: [
+          {
+            loader: 'vue-loader'
+          }
+        ],
+        // 共享进程池
+        threadPool: HappyPackThreadPool,
+        // 允许 HappyPack 输出日志
+        verbose: true
+      }),
+      new HappyPack({
+        // 用id来标识 happypack处理那里类文件
+        id: 'babelLoader',
+        // 如何处理  用法和loader 的配置一样
+        loaders: [
+          {
+            loader: 'babel-loader'
+          }
+        ],
+        // 共享进程池
+        threadPool: HappyPackThreadPool,
+        // 允许 HappyPack 输出日志
+        verbose: true
       })
     ]
   },

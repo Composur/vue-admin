@@ -1,7 +1,15 @@
 <template>
   <section class="app-main">
     <transition name="fade-transform" mode="out-in">
-      <router-view :key="key" />
+      <keep-alive>
+        <!-- 需要缓存的视图组件 -->
+        <router-view v-if="$route.meta.keepAlive" :key="key" />
+      </keep-alive>
+    </transition>
+
+    <transition name="fade-transform" mode="out-in">>
+      <!-- 不需要缓存的视图组件 -->
+      <router-view v-if="!$route.meta.keepAlive" :key="key" />
     </transition>
   </section>
 </template>
@@ -9,12 +17,31 @@
 <script>
 export default {
   name: 'AppMain',
+  data: () => ({
+    include: []
+  }),
   computed: {
     key() {
       return this.$route.path
     }
+  },
+  watch: {
+    $route(to, from) {
+      // 如果 要 to(进入) 的页面是需要 keepAlive 缓存的，把 name push 进 include数组
+      if (to.meta.keepAlive) {
+        !this.include.includes(to.name) && this.include.push(to.name)
+      }
+      // 如果 要 form(离开) 的页面是 keepAlive缓存的，
+      // 再根据 deepth 来判断是前进还是后退
+      // 如果是后退
+      if (from.meta.keepAlive && to.meta.deepth < from.meta.deepth) {
+        var index = this.include.indexOf(from.name)
+        index !== -1 && this.include.splice(index, 1)
+      }
+    }
   }
 }
+
 </script>
 
 <style scoped>
@@ -25,7 +52,7 @@ export default {
   position: relative;
   overflow: hidden;
 }
-.fixed-header+.app-main {
+.fixed-header + .app-main {
   padding-top: 50px;
 }
 </style>

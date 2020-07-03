@@ -109,19 +109,19 @@ export const constantRoutes = [
         path: 'index',
         name: 'Form',
         component: () => import('@/views/form/index'),
-        meta: { title: '表单', icon: 'form' }
+        meta: { title: '表单', icon: 'form', keepAlive: true }
       },
       {
         path: 'treeTable',
         name: 'treeTable',
         component: () => import('@/views/form/treeTable'),
-        meta: { title: '树形表格', icon: 'tree' }
+        meta: { title: '树形表格', icon: 'tree', keepAlive: true }
       },
       {
         path: 'treeMenu',
         name: 'treeMenu',
         component: () => import('@/views/form/treeMenu'),
-        meta: { title: '树形菜单', icon: 'tree' }
+        meta: { title: '树形菜单', icon: 'tree', keepAlive: true }
       }
     ]
   },
@@ -134,7 +134,7 @@ export const constantRoutes = [
         path: 'index',
         name: 'Compoents',
         component: () => import('@/views/showCom/index'),
-        meta: { title: '组件', icon: 'form' }
+        meta: { title: '组件', icon: 'form', keepAlive: true, deepth: 1 }
       }
 
     ]
@@ -207,7 +207,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'https://github.com/Composur',
-        meta: { title: 'github', icon: 'link' }
+        meta: { title: 'github', icon: 'link', keepAlive: true, deepth: 1 }
       }
     ]
   }

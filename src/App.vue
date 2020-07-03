@@ -9,7 +9,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-div {
+  div {
   color: rgb(128, 35, 35);
 }
 </style>
