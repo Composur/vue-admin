@@ -8,3 +8,8 @@ export default {
   name: 'App'
 }
 </script>
+<style lang="scss" scoped>
+div {
+  color: rgb(128, 35, 35);
+}
+</style>

@@ -2,7 +2,7 @@
 <template>
   <!-- eslint-disable vue/require-component-is -->
 
-  <component v-bind="linkProps(to)" @click.native="clickLink(to)">
+  <component :is="link" v-bind="linkProps(to)" @click.native="clickLink(to)">
     <slot />
   </component>
 </template>
@@ -20,7 +20,8 @@ export default {
   },
   data: function() {
     return {
-      test: 1
+      test: 1,
+      link: 'NavLink'
     }
   },
   methods: {
