@@ -1,4 +1,6 @@
 'use strict'
+const webpack = require('webpack')
+const CopyPlugin = require('copy-webpack-plugin')
 const path = require('path')
 // stylelint
 const StyleLintPlugin = require('stylelint-webpack-plugin')
@@ -97,7 +99,14 @@ module.exports = {
         threadPool: HappyPackThreadPool,
         // 允许 HappyPack 输出日志
         verbose: true
-      })
+      }),
+      new webpack.DllReferencePlugin({
+        context: __dirname,
+        manifest: require('./vendor-manifest.json')
+      }),
+      new CopyPlugin([ // 拷贝生成的文件到dist目录 这样每次不必手动去cv
+        { from: 'static', to: 'static' }
+      ])
     ]
   },
   chainWebpack(config) {
