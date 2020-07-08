@@ -1,6 +1,7 @@
 'use strict'
 const webpack = require('webpack')
 const CopyPlugin = require('copy-webpack-plugin')
+const WebpackBar = require('webpackbar')
 const path = require('path')
 // stylelint
 const StyleLintPlugin = require('stylelint-webpack-plugin')
@@ -106,7 +107,8 @@ module.exports = {
       }),
       new CopyPlugin([ // 拷贝生成的文件到dist目录 这样每次不必手动去cv
         { from: 'static', to: 'static' }
-      ])
+      ]),
+      new WebpackBar()
     ]
   },
   chainWebpack(config) {

@@ -5,7 +5,7 @@ import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 // import locale from 'element-ui/lib/locale/lang/en' // lang i18n
-
+import errorHandler from '@/config/errorHandler'
 import '@/styles/index.scss' // global css
 
 import App from './App'
@@ -31,6 +31,15 @@ import * as filters from './filters' // global filters
 //   const { mockXHR } = require('../mock')
 //   mockXHR()
 // }
+
+// 全局错误处理
+Vue.config.errorHandler = errorHandler
+
+Vue.config.warnHandler = function(msg, err, trace) {
+  setTimeout(() => {
+    errorHandler(msg, err, trace)
+  }, 100)
+}
 
 // set ElementUI lang to EN
 // Vue.use(ElementUI, { i18n })
