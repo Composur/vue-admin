@@ -139,6 +139,20 @@ export const constantRoutes = [
 
     ]
   },
+  {
+    path: '/charts',
+    component: Layout,
+    meta: { title: '可视化', icon: 'chart' },
+    children: [
+      {
+        path: 'index',
+        name: 'Chart',
+        component: () => import('@/views/charts'),
+        meta: { title: 'echarts', icon: 'chart', keepAlive: true, deepth: 1 }
+      }
+
+    ]
+  },
 
   {
     path: '/nested',

@@ -1,12 +1,25 @@
 import Vue from 'vue'
+import ECharts from 'vue-echarts' // 在 webpack 环境下指向 components/ECharts.vue
 
-import 'normalize.css/normalize.css' // A modern alternative to CSS resets
+// 手动引入 ECharts 各模块来减小打包体积
+import 'echarts/lib/chart/bar'
+import 'echarts/lib/component/tooltip'
+
+// 如果需要配合 ECharts 扩展使用，只需要直接引入扩展包即可
+// 以 ECharts-GL 为例：
+// 需要安装依赖：npm install --save echarts-gl，并添加如下引用
+// import 'echarts-gl'
+
+// A modern alternative to CSS resets
+import 'normalize.css/normalize.css'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 // import locale from 'element-ui/lib/locale/lang/en' // lang i18n
 import errorHandler from '@/config/errorHandler'
-import '@/styles/index.scss' // global css
+
+// global css
+import '@/styles/index.scss'
 
 import App from './App'
 import store from './store'
@@ -31,6 +44,9 @@ import * as filters from './filters' // global filters
 //   const { mockXHR } = require('../mock')
 //   mockXHR()
 // }
+
+// 注册组件后即可使用
+Vue.component('v-chart', ECharts)
 
 // 全局错误处理
 Vue.config.errorHandler = errorHandler
