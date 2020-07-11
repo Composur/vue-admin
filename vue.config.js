@@ -145,6 +145,11 @@ module.exports = {
         // 默认为 true
         // 这意味着编译好的渲染函数会保留所有 HTML 标签之间的空格。如果设置为 false，则标签之间的空格会被忽略。这能够略微提升一点性能但是可能会影响到内联元素的布局。
         options.compilerOptions.preserveWhitespace = true
+        // 可以在组件中这样引入图片、 <avatar img-src="./assets/default-avatar.png"></avatar>
+        // 等价于 require('xxx.png')
+        options.transformAssetUrls = {
+          avatar: 'img-src'
+        }
         return options
       })
       .end()
