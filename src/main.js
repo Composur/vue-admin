@@ -82,3 +82,15 @@ new Vue({
   i18n,
   render: h => h(App)
 })
+
+// Check that service workers are supported
+if ('serviceWorker' in navigator) {
+  // Use the window load event to keep the page load performant
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').then(() => {
+      console.log('sw 注册成功！')
+    }).catch(() => {
+      console.log('sw 注册失败！')
+    })
+  })
+}

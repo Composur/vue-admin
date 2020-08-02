@@ -6,8 +6,8 @@ const path = require('path')
 // stylelint
 const StyleLintPlugin = require('stylelint-webpack-plugin')
 const defaultSettings = require('./src/settings.js')
-const os = require('os')
-const HappyPack = require('happypack')
+// const os = require('os')
+// const HappyPack = require('happypack')
 // gzip压缩
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 // 是否为生产环境
@@ -15,9 +15,15 @@ const isProduction = process.env.NODE_ENV !== 'development'
 // gzip压缩
 const productionGzipExtensions = ['html', 'js', 'css']
 // 多线程打包
-const HappyPackThreadPool = HappyPack.ThreadPool({
-  size: Math.ceil(os.cpus().length / 2)
-})
+// const HappyPackThreadPool = HappyPack.ThreadPool({
+//   size: Math.ceil(os.cpus().length / 2)
+// })
+// 导入速度分析插件
+// const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
+
+// pwa
+const WorkboxPlugin = require('workbox-webpack-plugin')
+
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
@@ -34,7 +40,7 @@ module.exports = {
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
   devServer: {
-    hot: true, // 热加载
+    hot: true, // 热加载 只重新打包修改的文件 只对于 style 文件
     host: process.env.HOST || '0.0.0.0', // ip地址
     port, // 端口
     // https: false, //false关闭https，true为开启
@@ -71,34 +77,45 @@ module.exports = {
         'emitErrors': true,
         'failOnError': false
       }),
-      new HappyPack({
-        // 用id来标识 happypack处理那里类文件
-        id: 'vueLoader',
-        // 如何处理  用法和loader 的配置一样
-        loaders: [
-          {
-            loader: 'vue-loader'
-          }
-        ],
-        // 共享进程池
-        threadPool: HappyPackThreadPool,
-        // 允许 HappyPack 输出日志
-        verbose: true
-      }),
-      new HappyPack({
-        // 用id来标识 happypack处理那里类文件
-        id: 'babelLoader',
-        // 如何处理  用法和loader 的配置一样
-        loaders: [
-          {
-            loader: 'babel-loader'
-          }
-        ],
-        // 共享进程池
-        threadPool: HappyPackThreadPool,
-        // 允许 HappyPack 输出日志
-        verbose: true
-      }),
+      // 暂时用不到多进程打包，得不偿失。
+      // new SpeedMeasurePlugin({
+      //   module: {
+      //     rules: [
+      //       {
+      //         test: /\.js$/
+      //         use: ['thread-loader']
+      //       }
+      //     ]
+      //   }
+      // }),
+      // new HappyPack({
+      //   // 用id来标识 happypack处理那里类文件
+      //   id: 'vueLoader',
+      //   // 如何处理  用法和loader 的配置一样
+      //   loaders: [
+      //     {
+      //       loader: 'vue-loader'
+      //     }
+      //   ],
+      //   // 共享进程池
+      //   threadPool: HappyPackThreadPool,
+      //   // 允许 HappyPack 输出日志
+      //   verbose: true
+      // }),
+      // new HappyPack({
+      //   // 用id来标识 happypack处理那里类文件
+      //   id: 'babelLoader',
+      //   // 如何处理  用法和loader 的配置一样
+      //   loaders: [
+      //     {
+      //       loader: 'babel-loader'
+      //     }
+      //   ],
+      //   // 共享进程池
+      //   threadPool: HappyPackThreadPool,
+      //   // 允许 HappyPack 输出日志
+      //   verbose: true
+      // }),
       new webpack.DllReferencePlugin({
         context: __dirname,
         manifest: require('./vendor-manifest.json')
@@ -116,7 +133,26 @@ module.exports = {
         threshold: 10240, // 只有大小大于该值的资源会被处理 10240
         minRatio: 0.8, // 只有压缩率小于这个值的资源才会被处理
         deleteOriginalAssets: false // 删除原文件
-      }) : null
+      }) : null,
+      new WorkboxPlugin.GenerateSW({
+        // Do not precache images
+        exclude: [/\.(?:png|jpg|jpeg|svg)$/],
+        // Define runtime caching rules.
+        runtimeCaching: [{
+          // Match any request that ends with .png, .jpg, .jpeg or .svg.
+          urlPattern: /\.(?:png|jpg|jpeg|svg)$/,
+          // Apply a cache-first strategy.
+          handler: 'CacheFirst',
+          options: {
+            // Use a custom cache name.
+            cacheName: 'images',
+            // Only cache 10 images.
+            expiration: {
+              maxEntries: 10
+            }
+          }
+        }]
+      })
     ]
   },
   chainWebpack(config) {

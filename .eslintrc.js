@@ -5,6 +5,7 @@ module.exports = {
     sourceType: 'module'
   },
   env: {
+    // 支持浏览器的全局变量例如：window navigator
     browser: true,
     node: true,
     es6: true,
