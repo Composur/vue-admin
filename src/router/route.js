@@ -140,6 +140,19 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/interactive',
+    component: Layout,
+    meta: { title: '交互', icon: 'example' },
+    children: [
+      {
+        path: 'index',
+        name: 'Interactive',
+        component: () => import('@/views/interactive/Index'),
+        meta: { title: '交互', icon: 'example', keepAlive: true, deepth: 1 }
+      }
+    ]
+  },
+  {
     path: '/charts',
     component: Layout,
     meta: { title: '可视化', icon: 'chart' },
