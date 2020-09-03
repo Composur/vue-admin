@@ -81,5 +81,8 @@
     "> 1%",
     "last 2 versions"
   ],
-  "main": "index.js"
+  "main": "index.js",
+  "rules": {
+    "no-console": "off"
+  }
 }

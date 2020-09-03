@@ -7,12 +7,12 @@
  */
 const express = require('express')
 const app = express() // 产生应用对象
-const server_port=require('./config/config.default').server_port
-const connectMongo=require('./db/connect')
+const server_port = require('./config/config.default').server_port
+const connectMongo = require('./db/connect')
 const fs = require('fs')
-const path=require('path')
-const jwt=require('jsonwebtoken')
-const morgan=require('morgan')
+const path = require('path')
+const jwt = require('jsonwebtoken')
+// const morgan = require('morgan')
 
 // 日志中间件
 // 自定义token
@@ -27,22 +27,22 @@ const morgan=require('morgan')
 // 声明使用静态中间件
 app.use(express.static('public'))
 // 声明使用解析post请求的中间件
-app.use(express.urlencoded({extended: true})) // 请求体参数是: name=tom&pwd=123
+app.use(
+  express.urlencoded({
+    extended: true
+  })
+) // 请求体参数是: name=tom&pwd=123
 app.use(express.json()) // 请求体参数是json结构: {name: tom, pwd: 123}
 // 声明使用解析cookie数据的中间件
 const cookieParser = require('cookie-parser')
 app.use(cookieParser())
 // 声明使用路由器中间件
-const indexRouter = require('./routers')
+// const indexRouter = require('./routers')
 // app.use('/', indexRouter)  //
-
-
-
-
 
 // 这种情况适合前后端不分离，前端静态页面嵌入到后端应用中
 // 必须在路由器中间之后声明使用；这里是为了前端访问不到对应的路由，返回index页面
-       
+
 /*app.use((req, res) => {
   fs.readFile(__dirname + '/public/index.html', (err, data)=>{
     if(err){
@@ -57,20 +57,24 @@ const indexRouter = require('./routers')
   })
 })*/
 
-function verifyToken(token){
-  let cert = fs.readFileSync(path.join(__dirname, './config/rsa_public_key.pem'));//公钥
-  try{
-      let result = jwt.verify(token, cert, {algorithms: ['RS256']}) || {};
-      let {exp = 0} = result,current = Math.floor(Date.now()/1000);
-      if(current <= exp){
-          res = result.data || {};
-      }
-  }catch(e){
-  
-  }
-  return res;
-  
-}
+// function verifyToken(token) {
+//   let cert = fs.readFileSync(path.join(__dirname, './config/rsa_public_key.pem')); //公钥
+//   try {
+//     let result = jwt.verify(token, cert, {
+//       algorithms: ['RS256']
+//     }) || {};
+//     let {
+//       exp = 0
+//     } = result, current = Math.floor(Date.now() / 1000);
+//     if (current <= exp) {
+//       res = result.data || {};
+//     }
+//   } catch (e) {
+
+//   }
+//   return res;
+
+// }
 
 // app.use(async(ctx, next) => {
 //   let {url = ''} = ctx;
@@ -95,46 +99,47 @@ function verifyToken(token){
 // });
 
 // Token 校验
-app.use((req,res,next)=>{
+app.use((req, res, next) => {
   // let token = req.headers.authorization
-  const {vue_admin_template_token} = req.cookies
-  const url=req.url
-  let cert = fs.readFileSync(path.join(__dirname, './config/rsa_public_key.pem'));//公钥
-  if(url.indexOf('/api/login') !== 0){
-      try{
-        let result = jwt.verify(vue_admin_template_token, cert, {algorithms: ['RS256']}) || {};
-        let {exp = 0} = result,current = Math.floor(Date.now()/1000);
-        if(current <= exp){
-          req.result = result
-          next()
-        }
-    }catch(e){
+  const { vue_admin_template_token } = req.cookies
+  const url = req.url
+  let cert = fs.readFileSync(path.join(__dirname, './config/rsa_public_key.pem')) //公钥
+  if (url.indexOf('/api/login') !== 0) {
+    try {
+      let result =
+        jwt.verify(vue_admin_template_token, cert, {
+          algorithms: ['RS256']
+        }) || {}
+      let { exp = 0 } = result,
+        current = Math.floor(Date.now() / 1000)
+      if (current <= exp) {
+        req.result = result
+        next()
+      }
+    } catch (e) {
       res.status(200)
-      res.send({status: 1, msg: '登录信息失效，请重新登录'})
+      res.send({
+        status: 1,
+        msg: '登录信息失效，请重新登录'
+      })
     }
-  }else{
+  } else {
     next()
   }
 })
-
 
 /*
  * 根据不同的功能划分模块(路由分块)
  *
  * */
-app.use('/api', require('./routers'));
-
-
-
-
-
-
-
+app.use('/api', require('./routers'))
 
 // 优化数据库连接
-const startServer=function(){
+const startServer = function() {
   app.listen(server_port, () => {
-    console.log('服务器启动成功, 监听端口:'+server_port)
+    console.table({
+      '服务器启动成功, 监听端口': server_port
+    })
   })
 }
 // 连接成功后启动server

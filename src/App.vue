@@ -3,13 +3,15 @@
     <router-view />
   </div>
 </template>
+
 <script>
 export default {
   name: 'App'
 }
 </script>
+
 <style lang="scss" scoped>
-  div {
+div {
   color: rgb(128, 35, 35);
 }
 </style>

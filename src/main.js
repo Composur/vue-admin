@@ -69,7 +69,6 @@ Object.keys(filters).forEach(key => {
 })
 // 全局指令
 Vue.use(directive)
-
 // 如果想要中文版 element-ui，按如下方式声明
 // Vue.use(ElementUI)
 
@@ -87,10 +86,13 @@ new Vue({
 if ('serviceWorker' in navigator) {
   // Use the window load event to keep the page load performant
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').then(() => {
-      console.log('sw 注册成功！')
-    }).catch(() => {
-      console.log('sw 注册失败！')
-    })
+    navigator.serviceWorker
+      .register('/service-worker.js')
+      .then(() => {
+        console.log('sw 注册成功！')
+      })
+      .catch(() => {
+        console.log('sw 注册失败！')
+      })
   })
 }

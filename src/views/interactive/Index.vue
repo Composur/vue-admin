@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="cpt-sticky"
-    :class="fixedClass"
-    :style="{ top: top + 'px', zIndex }"
-  >
+  <div class="cpt-sticky" :class="fixedClass" :style="{ top: top + 'px', zIndex }">
     <slot />
   </div>
 </template>
@@ -14,11 +10,10 @@ export default {
     // parent: String,
     // zIndex: Number,
   },
-
   data() {
     return {
       fixedClass: '',
-      scrollElement: null,
+      scrollElement: null
     }
   },
 
@@ -52,8 +47,8 @@ export default {
       if (this.scrollElement) {
         this.scrollElement.removeEventListener('scroll', this.handleScroll)
       }
-    },
-  },
+    }
+  }
 }
 </script>
 <style lang="scss">
