@@ -36,6 +36,8 @@ export default {
       }
     },
     styleExternalIcon() {
+      // mask 为 SVG 元素
+      // 外链的 SVG mask 作为遮罩
       return {
         mask: `url(${this.iconClass}) no-repeat 50% 50%`,
         '-webkit-mask': `url(${this.iconClass}) no-repeat 50% 50%`
