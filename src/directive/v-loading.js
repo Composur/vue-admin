@@ -21,7 +21,11 @@ export default {
       el.instance.visible = binding.value
       // 显示的文案
       if (binding.arg) {
-        el.instance.text = binding.arg
+        try {
+          el.instance.text = binding.arg
+        } catch (error) {
+          console.error(error)
+        }
       }
     })
   },
