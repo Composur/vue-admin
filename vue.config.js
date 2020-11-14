@@ -39,6 +39,9 @@ module.exports = {
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
+  watchOptions: {
+    ignored: ['node_modules/**']
+  },
   devServer: {
     hot: true, // 热加载 只重新打包修改的文件 只对于 style 文件
     host: process.env.HOST || '0.0.0.0', // ip地址
