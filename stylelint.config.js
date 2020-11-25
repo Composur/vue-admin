@@ -29,17 +29,22 @@
 //   }
 // }
 module.exports = {
-  'extends': ['stylelint-prettier/recommended', 'stylelint-config-standard'],
-  'plugins': ['stylelint-prettier'],
+  // 'extends': ['stylelint-prettier/recommended', 'stylelint-config-standard'],
+  'extends': ['stylelint-config-standard'],
+  'ignoreFiles': [
+    'node_modules/**/*.*',
+    'src/styles/*.scss'
+  ],
+  // 'plugins': ['stylelint-prettier'],
   'rules': {
-    'prettier/prettier': true,
-    'unit-case': null,
-    'no-descending-specificity': null,
-    'block-no-empty': null,
-    'no-empty-source': [true, { 'severity': 'warning' }],
-    'declaration-colon-newline-after': null,
-    'function-name-case': null,
-    'indentation': null,
-    'no-invalid-double-slash-comments': null
+    // 'prettier/prettier': true,
+    // 'unit-case': null,
+    // 'no-descending-specificity': null,
+    // 'block-no-empty': null,
+    // 'no-empty-source': [true, { 'severity': 'warning' }],
+    // 'declaration-colon-newline-after': null,
+    // 'function-name-case': null,
+    // 'indentation': null,
+    // 'no-invalid-double-slash-comments': null
   }
 }
