@@ -122,6 +122,12 @@ export const constantRoutes = [
         name: 'treeMenu',
         component: () => import('@/views/form/treeMenu'),
         meta: { title: '树形菜单', icon: 'tree', keepAlive: true }
+      },
+      {
+        path: 'dragForm',
+        name: 'dragForm',
+        component: () => import('@/views/form/DragForm'),
+        meta: { title: '组件拖拽', icon: 'drag', keepAlive: true }
       }
     ]
   },
