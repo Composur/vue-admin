@@ -38,7 +38,7 @@ class PromiseQueue {
     if (this.runingCount >= this.concurrency) {
       // 等待执行
       this.queue.push(promiseFunc)
-      console.log(this.queue)
+      // console.log(this.queue)
       return
     }
     // 执行

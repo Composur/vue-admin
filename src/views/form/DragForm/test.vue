@@ -1,3 +1,4 @@
+// 并发测试
 <template>
   <div>drag</div>
 </template>
@@ -34,7 +35,7 @@ export default {
       await new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve((this.count += 100))
-          console.log('test1', this.count)
+          // console.log('test1', this.count)
         }, 1500)
       })
     }
