@@ -6,7 +6,7 @@
   "scripts": {
     "test:unit": "jest --clearCache && vue-cli-service test:unit",
     "lint": "eslint --ext .js,.vue src --fix",
-    "build:prod": "vue-cli-service build",
+    "build:prod": "vue-cli-service build --report",
     "build:stage": "vue-cli-service build --mode staging",
     "dev": "vue-cli-service serve",
     "dll": "webpack --config webpack.dll.config.js",
@@ -52,6 +52,7 @@
     "eslint": "5.15.3",
     "eslint-plugin-vue": "5.2.2",
     "happypack": "^5.0.1",
+    "hard-source-webpack-plugin": "^0.13.1",
     "html-webpack-plugin": "3.2.0",
     "image-webpack-loader": "^6.0.0",
     "mockjs": "1.0.1-beta3",
