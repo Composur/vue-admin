@@ -1,0 +1,40 @@
+version: '3.7'
+services:
+  web:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: web-backend
+    restart: on-failure
+    # 环境变量可以通过 process.env.xxx 拿到
+    environment:
+      PORT: 8084
+      WAIT_HOSTS: mongodb:27017
+      MONGODB_URI: mongodb://mongodb:27017/vue-admin
+    depends_on:
+      - mongodb
+    ports:
+      - 8084:8084
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - ~/Users/edison/data/db:/data/db
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    links:
+      - mongodb:mongodb
+    depends_on:
+      - mongodb
+    ports:
+      - 27018:8081
+    environment:
+      ME_CONFIG_OPTIONS_EDITORTHEME: 3024-night
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: admin
