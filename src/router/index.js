@@ -26,6 +26,12 @@ const createRouter = () =>
   new Router({
     // mode: 'history', // require service support
     scrollBehavior: () => ({ y: 0 }),
+    //   scrollBehavior(to) {
+    //     if (to.hash) {
+    //         return window.scrollTo({ top: document.querySelector(to.hash).offsetTop, behavior: 'smooth' });
+    //     }
+    //     return window.scrollTo({ top: 0, behavior: 'smooth' });
+    // },
     routes: constantRoutes
   })
 
