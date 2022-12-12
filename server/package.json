@@ -15,7 +15,7 @@
     "blueimp-md5": "^2.10.0",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.5",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "fs-extra": "^8.1.0",
     "global": "^4.4.0",
     "jsonwebtoken": "^8.5.1",
